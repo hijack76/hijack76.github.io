@@ -835,26 +835,26 @@
       }
       else if (page === 'semesters') { selectedSemester = null; selectedUnit = null; renderSemestersList(); }
       else if (page === 'units') { selectedUnit = null; renderUnitsList(); }
-       else if (page === 'library-guide') {
-         const main = document.getElementById('main-content');
-         if (main) {
-           main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-10 w-full max-w-5xl mx-auto text-left max-h-[80vh] overflow-y-auto">' +
-             '<div class="mb-6">' +
-             '<div class="breadcrumb">' +
-             '<button onclick="window.goToPage(\'home\')"> Home</button>' +
-             '<span>›</span><span style="background:rgba(27,94,32,0.1);color:var(--kshs-green);padding:0.35rem 0.75rem;border-radius:0.5rem;font-size:0.8rem;font-weight:600;">Library Guide</span>' +
-             '</div></div>' +
-             '<div class="text-center mb-8"><h2 class="text-3xl md:text-4xl font-bold text-green-900 mb-2">📚 Library Guide</h2><p class="text-gray-600">Your complete guide to using the KSHS Main Library</p></div>' +
-            '<div class="grid grid-cols-1 md:grid-cols-2 gap-6">' +
-            '<div class="bg-green-50 rounded-xl p-5 border-l-4 border-green-700"><h3 class="font-bold text-green-900 text-lg mb-2">🏛️ Library Services</h3><ul class="text-gray-700 text-sm space-y-1 list-disc pl-5"><li>Borrowing & returning books at the circulation desk</li><li>Reference & research assistance from librarians</li><li>Computer use and internet access</li><li>Photocopying and printing services</li><li>Quiet study rooms and group discussion areas</li></ul></div>' +
-            '<div class="bg-yellow-50 rounded-xl p-5 border-l-4 border-yellow-500"><h3 class="font-bold text-yellow-800 text-lg mb-2">⏰ Opening Hours</h3><ul class="text-gray-700 text-sm space-y-1"><li><strong>Monday - Friday:</strong> 8:00 AM - 10:00 PM</li><li><strong>Saturday:</strong> 9:00 AM - 5:00 PM</li><li><strong>Sunday:</strong> 12:00 PM - 5:00 PM</li><li><strong>Holidays:</strong> Check notice board for updates</li></ul></div>' +
-            '<div class="bg-blue-50 rounded-xl p-5 border-l-4 border-blue-600"><h3 class="font-bold text-blue-900 text-lg mb-2">🔍 How to Search (OPAC)</h3><ol class="text-gray-700 text-sm space-y-1 list-decimal pl-5"><li>Click on <strong>OPAC</strong> in the menu bar</li><li>Enter book title, author, or subject in the search box</li><li>Click <strong>Search</strong> to see results</li><li>Note the <strong>call number</strong> and <strong>location</strong></li><li>Ask the librarian to help you locate the book</li></ol></div>' +
-            '<div class="bg-red-50 rounded-xl p-5 border-l-4 border-red-600"><h3 class="font-bold text-red-900 text-lg mb-2">📋 Library Rules</h3><ul class="text-gray-700 text-sm space-y-1 list-disc pl-5"><li>Maintain silence in the reading areas</li><li>No food or drinks near books/computers</li><li>Return borrowed books on time to avoid fines</li><li>Do not remove security tags from books</li><li>Always carry your student ID</li></ul></div>' +
-            '<div class="bg-purple-50 rounded-xl p-5 border-l-4 border-purple-600"><h3 class="font-bold text-purple-900 text-lg mb-2">💻 E-Resources</h3><p class="text-gray-700 text-sm mb-2">Access digital resources available to KSHS students:</p><ul class="text-gray-700 text-sm space-y-1 list-disc pl-5"><li><strong>HINARI</strong> - Health research journals and books</li><li><strong>E-Library</strong> - Institutional digital repository</li><li><strong>OPAC</strong> - Online book catalog</li><li><strong>Research4Life</strong> - Global health research access</li></ul></div>' +
-            '<div class="bg-gray-50 rounded-xl p-5 border-l-4 border-gray-600"><h3 class="font-bold text-gray-900 text-lg mb-2">❓ Frequently Asked Questions</h3><ul class="text-gray-700 text-sm space-y-2"><li><strong>How many books can I borrow?</strong><br>Students can borrow up to 3 books for 2 weeks.</li><li><strong>Can I renew a book?</strong><br>Yes, renew online via OPAC or at the desk.</li><li><strong>What if I lose a book?</strong><br>Report immediately. Replacement cost applies.</li></ul></div>' +
-            '</div><div class="mt-8 text-center"><button onclick="window.goToPage(\'home\')" class="btn-primary">← Back to Home</button></div></div>';
+        else if (page === 'library-guide') {
+          const main = document.getElementById('main-content');
+          if (main) {
+            main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-4 w-full max-w-5xl mx-auto text-left">' +
+              '<div class="mb-6">' +
+              '<div class="breadcrumb">' +
+              '<button onclick="window.goToPage(\'home\')"> Home</button>' +
+              '<span>›</span><span style="background:rgba(27,94,32,0.1);color:var(--kshs-green);padding:0.35rem 0.75rem;border-radius:0.5rem;font-size:0.8rem;font-weight:600;">Library Guide</span>' +
+              '</div></div>' +
+              '<div class="text-center mb-4"><h2 class="text-2xl font-bold text-green-900">📚 Library Guide</h2></div>' +
+              '<div class="ratio ratio-16x9">' +
+                '<iframe src="LIBRARY GUIDE.pdf" title="Library Guide" allowfullscreen style="border:none; width:100%; height:100%;"></iframe>' +
+              '</div>' +
+              '<div class="mt-4 text-center">' +
+                '<a href="LIBRARY GUIDE.pdf" download class="btn-secondary mr-2">📥 Download PDF</a>' +
+                '<button onclick="window.goToPage(\'home\')" class="btn-primary">← Back to Home</button>' +
+              '</div>' +
+            '</div>';
+          }
         }
-      }
     };
   </script>
 </body>
