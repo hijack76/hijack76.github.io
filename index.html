@@ -525,45 +525,6 @@
      const app = initializeApp(firebaseConfig);
      const db = getFirestore(app);
 
-      // Run the hero carousel separately so Firebase or CDN failures cannot leave the page black.
-      const bgContainer = document.getElementById('bg-container');
-      if (bgContainer) {
-        const slides = [];
-        let currentSlide = 0;
-        for (let i = 1; i <= 45; i++) {
-          const slide = document.createElement('div');
-          slide.className = 'bg-slide' + (i === 1 ? ' active' : '');
-          slide.setAttribute('aria-hidden', i === 1 ? 'false' : 'true');
-          const image = document.createElement('img');
-          image.src = '/site%20images/image' + i + '.webp';
-          image.alt = '';
-          image.loading = i <= 3 ? 'eager' : 'lazy';
-          image.decoding = 'async';
-          if (i === 1) image.fetchPriority = 'high';
-          image.addEventListener('error', () => console.error('Carousel image failed:', image.src), { once: true });
-          slide.appendChild(image);
-          bgContainer.appendChild(slide);
-          slides.push(slide);
-        }
-        function showBackgroundSlide(index) {
-          slides[currentSlide]?.classList.remove('active');
-          currentSlide = (index + slides.length) % slides.length;
-          slides[currentSlide].classList.add('active');
-          slides.forEach((slide, slideIndex) => slide.setAttribute('aria-hidden', slideIndex === currentSlide ? 'false' : 'true'));
-        }
-        function startCarouselTimer() {
-          if (window.carouselInterval) clearInterval(window.carouselInterval);
-          window.carouselInterval = setInterval(() => showBackgroundSlide(currentSlide + 1), 10000);
-        }
-        function changeBackgroundSlide(direction) {
-          showBackgroundSlide(currentSlide + direction);
-          startCarouselTimer();
-        }
-        document.querySelector('.carousel-nav.prev')?.addEventListener('click', () => changeBackgroundSlide(-1));
-        document.querySelector('.carousel-nav.next')?.addEventListener('click', () => changeBackgroundSlide(1));
-        window.changeBackgroundSlide = changeBackgroundSlide;
-        startCarouselTimer();
-      }
     const returnBtn = document.getElementById("return-top-btn");
     if (returnBtn) {
       let scrollTimeout;
