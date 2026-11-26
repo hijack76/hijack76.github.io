@@ -126,26 +126,17 @@
       padding-bottom: 2px;
       white-space: nowrap;
     }
-    .nav-link:hover { color: var(--kshs-yellow); }
-    .nav-link.active { color: var(--kshs-yellow); }
-    .nav-link.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--kshs-yellow);
-      border-radius: 2px;
-    }
-    .nav-link.home-link:hover    { color: #fbbf24 !important; }
-    .nav-link.guide-link:hover   { color: #fbbf24 !important; }
-    .nav-link.courses-link:hover { color: #fbbf24 !important; }
-    .nav-link.repo-link:hover    { color: #fbbf24 !important; }
+    .nav-link:hover{color:#fff}
+    .nav-link.active{color:#fff}
+    .nav-link.active::after{content:none}
+    
+    
+    
+    
     .nav-link.hinari-link:hover  { color :#fbbf24 !important; }
-    .nav-link.opac-link:hover    { color: #fbbf24 !important; }
-    .nav-link.elib-link:hover    { color: #fbbf24 !important; }
-    .nav-link.studymaterials-link:hover  { color: #fbbf24 !important; }
+    
+    
+    
     .shadow-text {
       text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
     }
@@ -206,8 +197,8 @@
      }
 
      /* Focus styles for keyboard navigation */
-     .nav-link:focus,
-     .course-card:focus,
+     .nav-link:focus{outline:none!important;box-shadow:none!important;-webkit-tap-highlight-color:transparent}
+      .course-card:focus,
      .semester-card:focus,
      .unit-card:focus,
      .doc-card:focus,
@@ -221,7 +212,9 @@
     .library-brand-mark{display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(245,211,107,.55);border-radius:14px;color:inherit;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 12px rgba(0,0,0,.12)}
     .library-nav-group{align-items:center;gap:3px;padding:5px;border:1px solid rgba(255,255,255,.14);border-radius:15px;background:rgba(0,0,0,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
     .library-nav-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 13px;border-radius:10px;color:rgba(255,255,255,.86);font-size:12px;font-weight:650;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s}
-    .library-nav-link:hover,.library-nav-link.active,.library-nav-group details[open]>summary{color:#173f1c;background:#f5d36b;font-weight:800}
+    .library-nav-link:hover,.library-nav-group details[open]>summary{color:#fff;background:rgba(255,255,255,.12);font-weight:700}
+.library-nav-link.active{color:#fff;background:rgba(255,255,255,.08);font-weight:800}
+.library-nav-link:focus,.library-nav-link:focus-visible{outline:none;box-shadow:none;-webkit-tap-highlight-color:transparent}
     .library-nav-group details{position:relative}.library-nav-group summary{list-style:none}.library-nav-group summary::-webkit-details-marker{display:none}
     .library-dropdown{position:absolute;top:calc(100% + 12px);right:0;width:270px;padding:8px;border:1px solid rgba(255,255,255,.15);border-radius:14px;background:#10451a;box-shadow:0 18px 38px rgba(0,0,0,.28)}
     .library-dropdown a{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:9px;color:#fff;font-size:13px;font-weight:650}.library-dropdown a span{color:rgba(255,255,255,.58);font-size:11px;font-weight:400}.library-dropdown a:hover{background:rgba(255,255,255,.1);color:#f5d36b}
