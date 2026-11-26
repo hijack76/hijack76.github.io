@@ -716,6 +716,8 @@
        main.innerHTML = html;
      }
 
+    window.renderDocumentsList = renderDocumentsList;
+
     window.openDocument = (encodedPath, encodedTitle) => {
       const main = document.getElementById('main-content');
       if (!main) return;
