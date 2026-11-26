@@ -706,7 +706,7 @@
           if (doc.description) html += '<div class="doc-desc">' + doc.description + '</div>';
           html += '</div>';
           if (filePath) {
-            html += '<div class="flex gap-2"><a href="' + filePath + '" class="btn-green">?? Read</a><a href="' + filePath + '" download class="btn-green" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">?? Download</a></div>';
+            html += '<div class="flex gap-2"><button type="button" onclick="window.openDocument(\'' + encodeURIComponent(filePath) + '\', \'' + encodeURIComponent(doc.title || doc.id || 'Untitled Document') + '\')" class="btn-green">Read</button><a href="' + filePath + '" download class="btn-green" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">Download</a></div>';
            }
            html += '</div>';
          });
@@ -715,6 +715,24 @@
        
        main.innerHTML = html;
      }
+
+    window.openDocument = (encodedPath, encodedTitle) => {
+      const main = document.getElementById('main-content');
+      if (!main) return;
+      const filePath = decodeURIComponent(encodedPath);
+      const title = decodeURIComponent(encodedTitle);
+      const viewerUrl = filePath + (filePath.includes('#') ? '&' : '#') + 'toolbar=0&navpanes=0&view=FitH';
+      main.innerHTML =
+        '<section class="bg-white/95 backdrop-blur-sm rounded-2xl p-4 md:p-6 w-full max-w-6xl mx-auto text-left">' +
+          '<div class="flex items-center justify-between gap-3 mb-4">' +
+            '<h2 class="text-lg md:text-2xl font-bold text-green-900 break-words"></h2>' +
+            '<button type="button" onclick="window.renderDocumentsList()" class="btn-green shrink-0">Back to rules</button>' +
+          '</div>' +
+          '<iframe title="Document reader" src="' + viewerUrl.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '" class="w-full rounded-xl border border-green-200 bg-white" style="height:78vh; min-height:520px;" loading="lazy"></iframe>' +
+        '</section>';
+      main.querySelector('h2').textContent = title;
+      main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
 
     async function fetchCourses() {
       try {
