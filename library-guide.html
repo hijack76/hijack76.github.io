@@ -15,11 +15,38 @@ permalink: /library-guide
   <meta property="og:description" content="A guide to using library services, resources, and study materials.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://library.kshs.ac.ug/library-guide">
-  <meta property="og:image" content="https://library.kshs.ac.ug/site%20images/image1.webp">
+  <meta property="og:image" content="https://library.kshs.ac.ug/site-images/image1.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Library Guide | KSHS Main Library">
   <meta name="twitter:description" content="A guide to using library services, resources, and study materials.">
-  <meta name="twitter:image" content="https://library.kshs.ac.ug/site%20images/image1.webp">
+  <meta name="twitter:image" content="https://library.kshs.ac.ug/site-images/image1.webp">
+
+<style id="content-protection">
+  html, body, body * { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none; }
+  img, picture, video, canvas, svg { -webkit-user-drag: none !important; user-drag: none !important; }
+  @media print { html, body { display: none !important; } }
+</style>
+<script id="content-protection-script">
+(() => {
+  const stop = (event) => { event.preventDefault(); event.stopPropagation(); return false; };
+  document.addEventListener('contextmenu', stop, true);
+  document.addEventListener('copy', stop, true);
+  document.addEventListener('cut', stop, true);
+  document.addEventListener('dragstart', stop, true);
+  document.addEventListener('selectstart', stop, true);
+  document.addEventListener('keydown', (event) => {
+    const key = (event.key || '').toLowerCase();
+    if ((event.ctrlKey || event.metaKey) && ['a','c','s','u','p','x'].includes(key)) stop(event);
+    if (event.key === 'PrintScreen') stop(event);
+  }, true);
+  document.querySelectorAll('img, video').forEach((media) => {
+    media.setAttribute('draggable', 'false');
+    media.addEventListener('dragstart', stop, true);
+    media.addEventListener('contextmenu', stop, true);
+  });
+})();
+</script>
+
 </head>
 <body class="bg-[#1b5e20] text-white min-h-screen flex flex-col">
 
@@ -142,7 +169,7 @@ permalink: /library-guide
   <header class="library-site-header sticky top-0 z-50 w-full">
   <div class="header-inner container mx-auto flex min-h-[74px] items-center justify-between gap-4 px-4 py-3">
     <a href="/" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home">
-      <span class="library-brand-mark" aria-hidden="true"><img src="site%20images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span>
+      <span class="library-brand-mark" aria-hidden="true"><img src="site-images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span>
       <span class="flex min-w-0 flex-col leading-tight"><span class="text-sm sm:text-base font-extrabold tracking-[.13em] text-white">KSHS LIBRARY</span><span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.2em] text-[#f5d36b]/90">Knowledge · Learning · Research</span></span>
     </a>
     <nav aria-label="Main navigation" class="library-nav-group hidden lg:flex">

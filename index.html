@@ -10,7 +10,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kampala School of Health Sciences Main Library</title>
-  <link rel="preload" as="image" href="/site%20images/image1.webp">
+  <link rel="preload" as="image" href="/site-images/image1.webp">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   
@@ -264,6 +264,33 @@
       .library-hero-content .btn-secondary { transition: none; }
     }
 </style>
+
+<style id="content-protection">
+  html, body, body * { -webkit-user-select: none !important; user-select: none !important; -webkit-touch-callout: none; }
+  img, picture, video, canvas, svg { -webkit-user-drag: none !important; user-drag: none !important; }
+  @media print { html, body { display: none !important; } }
+</style>
+<script id="content-protection-script">
+(() => {
+  const stop = (event) => { event.preventDefault(); event.stopPropagation(); return false; };
+  document.addEventListener('contextmenu', stop, true);
+  document.addEventListener('copy', stop, true);
+  document.addEventListener('cut', stop, true);
+  document.addEventListener('dragstart', stop, true);
+  document.addEventListener('selectstart', stop, true);
+  document.addEventListener('keydown', (event) => {
+    const key = (event.key || '').toLowerCase();
+    if ((event.ctrlKey || event.metaKey) && ['a','c','s','u','p','x'].includes(key)) stop(event);
+    if (event.key === 'PrintScreen') stop(event);
+  }, true);
+  document.querySelectorAll('img, video').forEach((media) => {
+    media.setAttribute('draggable', 'false');
+    media.addEventListener('dragstart', stop, true);
+    media.addEventListener('contextmenu', stop, true);
+  });
+})();
+</script>
+
 </head>
 <body>
 
@@ -282,7 +309,7 @@
     <header class="library-site-header sticky top-0 z-50 w-full">
   <div class="header-inner container mx-auto flex min-h-[74px] items-center justify-between gap-4 px-4 py-3">
     <a href="/" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home">
-      <span class="library-brand-mark" aria-hidden="true"><img src="site%20images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span>
+      <span class="library-brand-mark" aria-hidden="true"><img src="site-images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span>
       <span class="flex min-w-0 flex-col leading-tight"><span class="text-sm sm:text-base font-extrabold tracking-[.13em] text-white">KSHS LIBRARY</span><span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.2em] text-[#f5d36b]/90">Knowledge · Learning · Research</span></span>
     </a>
     <nav aria-label="Main navigation" class="library-nav-group hidden lg:flex">
@@ -301,7 +328,7 @@
     </nav></div>
 </header><main id="main-content" class="flex-grow flex items-center justify-center p-4 md:p-6 relative" role="main" aria-label="Main content">
        <div class="library-hero-content text-center text-white max-w-4xl px-2 md:px-4 z-10 w-full">
-         <img src="/site%20images/logo%20.png" alt="KSHS Logo" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto mb-6 object-contain border-4 border-white/20 rounded-xl">
+         <img src="/site-images/logo%20.png" alt="KSHS Logo" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto mb-6 object-contain border-4 border-white/20 rounded-xl">
         <h1 class="text-2xl sm:text-4xl md:text-6xl font-black mb-4 shadow-text leading-tight">Kampala School Of Health Sciences Main Library</h1>
         <p class="text-lg md:text-2xl mb-8 shadow-text font-medium opacity-90">Promoting learner centred education by focusing on the changing needs of library users.
 </p>
@@ -478,7 +505,7 @@
           slide.className = 'bg-slide' + (i === 1 ? ' active' : '');
           slide.setAttribute('aria-hidden', i === 1 ? 'false' : 'true');
           const image = document.createElement('img');
-          image.src = '/site%20images/image' + i + '.webp';
+          image.src = '/site-images/image' + i + '.webp';
           image.alt = '';
           image.loading = i <= 3 ? 'eager' : 'lazy';
           image.decoding = 'async';
