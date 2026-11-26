@@ -189,7 +189,7 @@ permalink: /library-guide
 
   <footer class="bg-[#1b5e20] text-white py-4 border-t-4 border-[#ffc107] mt-auto w-full">
     <div class="max-w-6xl mx-auto px-6 text-center">
-      <p class="text-xs text-gray-400">&copy; 2026 Kampala School of Health Sciences Main Library. All Rights Reserved.</p>
+      <p class="text-xs text-gray-400">&copy; <span class="current-year">2026</span> Kampala School of Health Sciences Main Library. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -348,6 +348,11 @@ permalink: /library-guide
         status.textContent = 'The guide could not be loaded. Please refresh the page or try again later.';
       }
     })();
+  </script>
+  <script id="current-year-updater">
+    document.querySelectorAll('.current-year').forEach((element) => {
+      element.textContent = new Date().getFullYear();
+    });
   </script>
 </body>
 </html>
