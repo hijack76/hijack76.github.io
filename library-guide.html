@@ -24,25 +24,31 @@
 
   <style>
     .library-site-header {
-      background: linear-gradient(110deg, #10451a 0%, #1b5e20 58%, #236b2a 100%);
-      border-bottom: 3px solid #ffc107;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+      background: linear-gradient(112deg, #103f20 0%, #17602c 52%, #104822 100%);
+      border-bottom: 3px solid #e8bd45;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
     }
     .library-brand-mark {
-      display: grid; place-items: center; width: 40px; height: 40px;
-      border: 1px solid rgba(255,255,255,.3); border-radius: 12px;
-      color: #ffc107; background: rgba(255,255,255,.09);
-      font-size: 19px; font-weight: 800; letter-spacing: -.06em;
+      display: grid; place-items: center; width: 46px; height: 46px;
+      border: 1px solid rgba(245,211,107,.55); border-radius: 14px;
+      color: #f5d36b; background: linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14),0 4px 12px rgba(0,0,0,.12);
+    }
+    .library-nav-group {
+      display:flex; align-items:center; gap:3px; padding:5px;
+      border:1px solid rgba(255,255,255,.14); border-radius:15px;
+      background:rgba(0,0,0,.12); box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
     }
     .library-nav-link {
-      display: inline-flex; align-items: center; min-height: 38px;
-      padding: 0 11px; border-radius: 9px; color: rgba(255,255,255,.88);
+      display: inline-flex; align-items: center; justify-content:center; min-height: 40px;
+      padding: 0 12px; border-radius: 10px; color: rgba(255,255,255,.86);
       font-size: 12px; font-weight: 650; white-space: nowrap;
       transition: background .2s ease, color .2s ease, transform .2s ease;
     }
-    .library-nav-link:hover { color: #fff; background: rgba(255,255,255,.12); }
+    .library-nav-link:hover { color: #fff; background: rgba(255,255,255,.12); transform:translateY(-1px); }
     .library-nav-link.active {
-      color: #173f1c; background: #ffc107; box-shadow: 0 2px 8px rgba(0,0,0,.12);
+      color: #173f1c; background: #f5d36b; font-weight:800;
+      box-shadow: 0 3px 10px rgba(0,0,0,.16);
     }
     .library-menu-link {
       display: flex; align-items: center; min-height: 48px; padding: 0 15px;
@@ -60,21 +66,20 @@
   <header class="library-site-header sticky top-0 z-50 w-full">
     <div class="header-inner container mx-auto flex min-h-[74px] items-center justify-between gap-4 px-4 py-3">
       <a href="./" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home">
-        <span class="library-brand-mark" aria-hidden="true">K</span>
+        <span class="library-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" class="h-7 w-7" fill="none"><path d="M4.5 7.5c4.2-.9 8.1-.1 11.5 2.4v16c-3.4-2.5-7.3-3.3-11.5-2.4v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M27.5 7.5c-4.2-.9-8.1-.1-11.5 2.4v16c3.4-2.5 7.3-3.3 11.5-2.4v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 10v16" stroke="currentColor" stroke-width="1.6"/></svg></span>
         <span class="flex min-w-0 flex-col leading-tight">
-          <span class="text-sm sm:text-base font-extrabold tracking-[.08em] text-white">KSHS LIBRARY</span>
-          <span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.19em] text-green-100/75">Knowledge · Learning · Research</span>
+          <span class="text-sm sm:text-base font-extrabold tracking-[.13em] text-white">KSHS LIBRARY</span>
+          <span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.2em] text-[#f5d36b]/90">Knowledge · Learning · Research</span>
         </span>
       </a>
 
-      <nav aria-label="Main navigation" class="hidden 2xl:flex items-center gap-1">
+      <nav aria-label="Main navigation" class="library-nav-group hidden 2xl:flex">
         <a href="./" class="library-nav-link">Home</a>
         <a href="library-guide.html" aria-current="page" class="library-nav-link active">Library Guide</a>
         <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer" class="library-nav-link">Courses</a>
         <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-nav-link">Institutional Repository</a>
         <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="library-nav-link">Hinari</a>
-        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-nav-link">OPAC</a>
-        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-nav-link">E-Library</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-nav-link">OPAC &amp; E-Library</a>
         <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-nav-link">Study Materials</a>
       </nav>
 
@@ -103,8 +108,7 @@
         <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer" class="library-menu-link">Courses</a>
         <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-menu-link">Institutional Repository</a>
         <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="library-menu-link">Hinari</a>
-        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-menu-link">OPAC</a>
-        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-menu-link">E-Library</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-menu-link">OPAC &amp; E-Library</a>
         <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-menu-link">Study Materials</a>
       </nav>
       <p class="mt-auto pt-8 text-center text-xs text-green-100/50">Kampala School of Health Sciences · Main Library</p>
