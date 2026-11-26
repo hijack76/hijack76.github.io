@@ -468,7 +468,7 @@
   </script>
 
   <script>
-      // Run the hero carousel separately so Firebase or CDN failures cannot leave the page black.
+      // Run the hero carousel independently so unrelated scripts cannot leave the page black.
       const bgContainer = document.getElementById('bg-container');
       if (bgContainer) {
         const slides = [];
@@ -510,20 +510,6 @@
   </script>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBZLoJZVVCVAWafhd4Oh8bhEGV4waN1B5g",
-      authDomain: "studypedia-app.firebaseapp.com",
-      projectId: "studypedia-app",
-      storageBucket: "studypedia-app.firebasestorage.app",
-      messagingSenderId: "793261754970",
-      appId: "1:793261754970:web:49bbd2bea1ab4d46486663"
-    };
-
-     const app = initializeApp(firebaseConfig);
-     const db = getFirestore(app);
 
     const returnBtn = document.getElementById("return-top-btn");
     if (returnBtn) {
