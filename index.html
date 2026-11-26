@@ -3,163 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kampala School of Health Sciences Main Library</title>
-  <link rel="preload" as="image" href="site images/image1.webp">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Kampala School of Health Sciences Main Library — promoting learner-centred education with 24/7 digital access to 1000+ study resources, course materials, and library services.">
+  <link rel="canonical" href="https://library.kshs.ac.ug/">
+  <link rel="preload" as="image" href="site-images/image1.webp">
+  <link rel="stylesheet" href="dist/output.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --kshs-green: #1b5e20;
-      --kshs-yellow: #ffc107;
-    }
-    body { 
-      font-family: 'Inter', sans-serif; 
-      overflow-x: hidden;
-      margin: 0;
-      padding: 0;
-    }
-
-    #bg-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      background-color: #000;
-    }
-    .bg-slide {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-    .bg-slide.active { opacity: 1; }
-    .hero-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
-    }
-
-    header {
-      background-color: var(--kshs-green) !important;
-      border-bottom: 5px solid var(--kshs-yellow);
-      position: sticky;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      width: 100%;
-    }
-    .nav-link {
-      color: white;
-      font-weight: 600;
-      transition: all 0.3s;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.5px;
-      text-decoration: none;
-      position: relative;
-      padding-bottom: 2px;
-      white-space: nowrap;
-    }
-    .nav-link:hover { color: var(--kshs-yellow); }
-    .nav-link.active { color: var(--kshs-yellow); }
-    .nav-link.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--kshs-yellow);
-      border-radius: 2px;
-    }
-    .nav-link.home-link:hover    { color: #fbbf24 !important; }
-    .nav-link.guide-link:hover   { color: #fbbf24 !important; }
-    .nav-link.courses-link:hover { color: #fbbf24 !important; }
-    .nav-link.repo-link:hover    { color: #fbbf24 !important; }
-    .nav-link.hinari-link:hover  { color :#fbbf24 !important; }
-    .nav-link.opac-link:hover    { color: #fbbf24 !important; }
-    .nav-link.elib-link:hover    { color: #fbbf24 !important; }
-    .nav-link.studymaterials-link:hover  { color: #fbbf24 !important; }
-    .shadow-text {
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--kshs-green), #2d8a3c);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 9999px;
-      font-weight: bold;
-      font-size: 1.125rem;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 10px 20px rgba(27, 94, 32, 0.3);
-    }
-    .btn-primary:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 30px rgba(27, 94, 32, 0.4);
-    }
-    .btn-secondary {
-      background: white;
-      color: var(--kshs-green);
-      padding: 1rem 2rem;
-      border-radius: 9999px;
-      font-weight: bold;
-      font-size: 1.125rem;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-     .btn-secondary:hover {
-       background: #f0f0f0;
-       transform: scale(1.05);
-     }
-
-     /* Skeleton Loading States */
-     .skeleton {
-       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-       background-size: 200% 100%;
-       animation: skeleton-loading 1.5s infinite;
-       border-radius: 0.5rem;
-     }
-     @keyframes skeleton-loading {
-       0% { background-position: 200% 0; }
-       100% { background-position: -200% 0; }
-     }
-     .skeleton-card {
-       height: 140px;
-       border-radius: 1rem;
-     }
-     .semester-card.skeleton,
-     .unit-card.skeleton,
-     .doc-card.skeleton {
-       height: 80px;
-       border-radius: 0.75rem;
-     }
-
-     /* Focus styles for keyboard navigation */
-     .nav-link:focus,
-     .course-card:focus,
-     .semester-card:focus,
-     .unit-card:focus,
-     .doc-card:focus,
-     button:focus,
-     a:focus {
-       outline: 3px solid var(--kshs-yellow);
-       outline-offset: 2px;
-     }
-  </style>
+  <meta property="og:title" content="Kampala School of Health Sciences Main Library">
+  <meta property="og:description" content="Promoting learner-centred education with 24/7 digital access to 1000+ study resources, course materials, and library services.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://library.kshs.ac.ug/">
+  <meta property="og:image" content="https://library.kshs.ac.ug/site-images/image1.webp">
+  <meta property="og:image:alt" content="KSHS Main Library">
+  <meta property="og:site_name" content="KSHS Main Library">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kampala School of Health Sciences Main Library">
+  <meta name="twitter:description" content="Promoting learner-centred education with 24/7 digital access to 1000+ study resources.">
+  <meta name="twitter:image" content="https://library.kshs.ac.ug/site-images/image1.webp">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <div id="bg-container"></div>
   <div class="hero-overlay"></div>
@@ -169,7 +31,7 @@
     <header>
       <div class="container mx-auto px-4 py-2 flex items-center justify-between">
         <div class="flex items-center space-x-4 flex-shrink-0">
-          <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="h-11 w-auto object-contain">
+          <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="h-11 w-auto object-contain" loading="lazy">
           <span class="text-white font-bold text-base hidden md:block">KSHS LIBRARY</span>
         </div>
         <nav class="hidden lg:flex space-x-5 items-center">
@@ -210,13 +72,13 @@
 
      <main id="main-content" class="flex-grow flex items-center justify-center p-4 md:p-6 relative" role="main" aria-label="Main content">
        <div class="text-center text-white max-w-4xl px-2 md:px-4 z-10 w-full">
-         <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto mb-6 object-contain border-4 border-white/20 rounded-xl">
+         <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto mb-6 object-contain border-4 border-white/20 rounded-xl" loading="lazy">
         <h1 class="text-2xl sm:text-4xl md:text-6xl font-black mb-4 shadow-text leading-tight">Kampala School Of Health Sciences Main Library</h1>
         <p class="text-lg md:text-2xl mb-8 shadow-text font-medium opacity-90">Promoting learner centred education by focusing on the changing needs of library users.
 </p>
         <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
-         <a href="http://studypedia.kshs.ac.ug" target="_blank" class="btn-secondary">Study Materials</a>
-          <a href="http://192.168.42.172:8000" target="_blank" class="btn-secondary">Search Books (OPAC)</a>
+         <a href="http://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="btn-secondary">Study Materials</a>
+          <a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer" class="btn-secondary">Search Books (OPAC)</a>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
@@ -260,9 +122,9 @@
               <h4 class="text-xs font-bold text-[#ffc107] uppercase tracking-wider mb-1">Quick Links</h4>
               <div class="flex flex-wrap gap-x-4 gap-y-1">
                 <a href="#" onclick="goToPage('library-guide')" class="text-sm text-gray-200 hover:text-[#ffc107] transition-colors">Library Guide</a>
-                <a href="http://127.0.0.1:4000" target="_blank" class="text-sm text-gray-200 hover:text-[#ffc107] transition-colors">OPAC</a>
-                <a href="http://127.0.1.1/cgi-bin/koha/opac-main.pl" target="_blank" class="text-sm text-gray-200 hover:text-[#ffc107] transition-colors">E-Library</a>
-                <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" class="text-sm text-gray-200 hover:text-[#ffc107] transition-colors">Hinari</a>
+                <a href="http://127.0.0.1:4000" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-200 hover:text-[#ffc107] transition-colors">OPAC</a>
+                <a href="http://127.0.1.1/cgi-bin/koha/opac-main.pl" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-200 hover:text-[#ffc107] transition-colors">E-Library</a>
+                <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-200 hover:text-[#ffc107] transition-colors">Hinari</a>
               </div>
             </div>
           </div>
@@ -292,65 +154,6 @@
   <button id="return-top-btn" aria-label="Return to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-green-800 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 z-50 opacity-0 invisible">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
   </button>
-
-  <style>
-    .course-card {
-      background: white;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      border: 2px solid #e5e7eb;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    .course-card:hover {
-      border-color: var(--kshs-green);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(27, 94, 32, 0.15);
-    }
-    .course-card .course-icon {
-      width: 50px; height: 50px;
-      background: linear-gradient(135deg, var(--kshs-green), #2d8a3c);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      color: white; font-size: 1.25rem; margin-bottom: 0.75rem;
-    }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 0.5rem;
-      margin-bottom: 1.5rem; flex-wrap: wrap;
-    }
-    .breadcrumb button {
-      background: rgba(27, 94, 32, 0.1); color: var(--kshs-green);
-      padding: 0.35rem 0.75rem; border-radius: 0.5rem;
-      font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer;
-    }
-    .breadcrumb button:hover { background: var(--kshs-green); color: white; }
-    .semester-card, .unit-card, .doc-card {
-      background: white; border-radius: 0.75rem;
-      padding: 1rem 1.25rem; border: 1px solid #e5e7eb;
-      transition: all 0.2s; cursor: pointer; text-align: left;
-    }
-    .semester-card:hover, .unit-card:hover {
-      border-color: var(--kshs-green); background: #f0fdf4;
-    }
-    .doc-card {
-      display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 0.75rem;
-    }
-    .doc-card .doc-title { font-weight: 600; color: #1f2937; }
-    .doc-card .doc-desc { font-size: 0.8rem; color: #6b7280; }
-    .btn-green {
-      background: linear-gradient(135deg, var(--kshs-green), #2d8a3c);
-      color: white; padding: 0.5rem 1rem; border-radius: 0.5rem;
-      font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer;
-    }
-    .btn-green:hover { transform: scale(1.05); }
-    .loading-spinner {
-      width: 40px; height: 40px; border: 4px solid #e5e7eb;
-      border-top-color: var(--kshs-green); border-radius: 50%;
-      animation: spin 1s linear infinite; margin: 0 auto 1rem;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -392,30 +195,44 @@
        for (let i = 1; i <= CONFIG.carousel.totalImages; i++) {
          const slide = document.createElement('div');
          slide.className = 'bg-slide' + (i === 1 ? ' active' : '');
-        // Fix broken image 5 filename with extra space
-        const imgName = `image${i}.webp`;
-        slide.style.backgroundImage = `url("site images/${imgName}")`;
+         slide.dataset.index = i;
          slide.setAttribute('aria-hidden', 'true');
+         // Only apply the first background image up front; rest load lazily
+         // when their slide becomes active (preloaded into cache beforehand).
+         if (i === 1) {
+           slide.style.backgroundImage = `url("site-images/image1.webp")`;
+           slide.dataset.backgroundApplied = 'true';
+         }
          bgContainer.appendChild(slide);
        }
        const slides = document.querySelectorAll('.bg-slide');
        let currentSlide = 0;
-       // Preload only first few images
-       for (let i = 1; i <= Math.min(CONFIG.carousel.preloadCount, CONFIG.carousel.totalImages); i++) { 
-         const preloadName = `image${i}.webp`;
-         new Image().src = `site images/${preloadName}`; 
+       // Preload an upcoming image into browser cache without applying it yet.
+       const preloadImage = (index) => {
+         const slide = slides[index];
+         if (!slide || slide.dataset.backgroundSet) return;
+         const imgName = `image${index + 1}.webp`;
+         new Image().src = `site-images/${imgName}`;
+         slide.dataset.backgroundSet = 'preloaded';
+       };
+       // Preload the next few images after the first.
+       for (let i = 1; i < Math.min(CONFIG.carousel.preloadCount, CONFIG.carousel.totalImages); i++) {
+         preloadImage(i);
        }
        window.carouselInterval = setInterval(() => {
          slides[currentSlide].classList.remove('active');
          currentSlide = (currentSlide + 1) % slides.length;
          slides[currentSlide].classList.add('active');
-         // Preload upcoming image
-         const nextIndex = (currentSlide + 1) % slides.length;
-         if (!slides[nextIndex].dataset.loaded) {
-           const nextName = `image${nextIndex + 1}.webp`;
-           new Image().src = `site images/${nextName}`;
-           slides[nextIndex].dataset.loaded = 'true';
+         // Apply background image lazily when the slide becomes active.
+         const slide = slides[currentSlide];
+         if (!slide.dataset.backgroundApplied) {
+           const imgName = `image${currentSlide + 1}.webp`;
+           slide.style.backgroundImage = `url("site-images/${imgName}")`;
+           slide.dataset.backgroundApplied = 'true';
          }
+         // Preload the next upcoming image.
+         const nextIndex = (currentSlide + 1) % slides.length;
+         preloadImage(nextIndex);
        }, CONFIG.carousel.interval);
      }
 
@@ -444,7 +261,7 @@
     };
 
     function renderBreadcrumb() {
-      let html = '<div class="breadcrumb"><button onclick="window.goToPage(\'courses\')">?? Courses</button>';
+      let html = '<div class="breadcrumb"><button onclick="window.goToPage(\'courses\')"><span aria-hidden="true">??</span> Courses</button>';
       if (selectedCourse) {
         const c = courses.find(x => x.id === selectedCourse);
         html += '<span>›</span><button onclick="window.goToPage(\'semesters\')">' + (c?.name || 'Course') + '</button>';
@@ -470,7 +287,7 @@
        if (displayCourses.length === 0) {
          main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 w-full max-w-5xl mx-auto text-left">' +
            '<div class="text-center mb-6">' +
-           '<h2 class="text-3xl font-bold text-green-900 mb-2">?? Available Courses</h2>' +
+           '<h2 class="text-3xl font-bold text-green-900 mb-2"><span aria-hidden="true">??</span> Available Courses</h2>' +
            '<p class="text-gray-600">Select a course to view semesters, course units, and study materials.</p>' +
            '</div>' +
            '<div class="mb-6">' +
@@ -497,7 +314,7 @@
        }
        let html = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 w-full max-w-5xl mx-auto text-left">';
        html += '<div class="text-center mb-6">';
-       html += '<h2 class="text-3xl font-bold text-green-900 mb-2">?? Available Courses</h2>';
+       html += '<h2 class="text-3xl font-bold text-green-900 mb-2"><span aria-hidden="true">??</span> Available Courses</h2>';
        html += '<p class="text-gray-600">Select a course to view semesters, course units, and study materials.</p>';
        html += '</div>';
        html += '<div class="mb-6">';
@@ -510,7 +327,7 @@
                  'aria-label="View ' + (course.name || 'course') + ' details" ' +
                  'onclick="window.selectCourse(\'' + course.id + '\')" ' +
                  'onkeydown="if(event.key===\'Enter\') window.selectCourse(\'' + course.id + '\')">';
-         html += '<div class="course-icon">??</div>';
+         html += '<div class="course-icon"><span aria-hidden="true">??</span></div>';
          html += '<h3 class="font-bold text-gray-800 text-lg">' + (course.name || 'Unnamed Course') + '</h3>';
          if (course.code) html += '<p class="text-xs text-gray-500 mt-1">Code: ' + course.code + '</p>';
          if (course.description) html += '<p class="text-sm text-gray-600 mt-2 line-clamp-2">' + course.description + '</p>';
@@ -631,7 +448,7 @@
           if (doc.description) html += '<div class="doc-desc">' + doc.description + '</div>';
           html += '</div>';
           if (filePath) {
-            html += '<div class="flex gap-2"><a href="' + filePath + '" target="_blank" class="btn-green">?? Read</a><a href="' + filePath + '" download class="btn-green" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">?? Download</a></div>';
+            html += '<div class="flex gap-2"><a href="' + filePath + '" target="_blank" rel="noopener noreferrer" class="btn-green"><span aria-hidden="true">??</span> Read</a><a href="' + filePath + '" download class="btn-green" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);"><span aria-hidden="true">??</span> Download</a></div>';
            }
            html += '</div>';
          });
@@ -650,7 +467,7 @@
       } catch (err) {
         console.error('Error fetching courses:', err);
         const main = document.getElementById('main-content');
-        if (main) main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 w-full max-w-4xl mx-auto text-center"><h2 class="text-2xl font-bold text-red-600 mb-2">?? Error</h2><p class="text-gray-600">' + err.message + '</p><button onclick="window.goToPage(\'courses\')" class="btn-primary mt-4">Retry</button></div>';
+        if (main) main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 w-full max-w-4xl mx-auto text-center"><h2 class="text-2xl font-bold text-red-600 mb-2"><span aria-hidden="true">??</span> Error</h2><p class="text-gray-600">' + err.message + '</p><button onclick="window.goToPage(\'courses\')" class="btn-primary mt-4">Retry</button></div>';
       }
     }
 
@@ -729,7 +546,7 @@
          const main = document.getElementById('main-content');
          if (main) {
            main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 w-full max-w-4xl mx-auto text-center">' +
-             '<h2 class="text-2xl font-bold text-red-600 mb-2">?? Error Loading Course Units</h2>' +
+             '<h2 class="text-2xl font-bold text-red-600 mb-2"><span aria-hidden="true">??</span> Error Loading Course Units</h2>' +
              '<p class="text-gray-600">' + err.message + '</p>' +
              '<p class="text-gray-500 text-sm mt-2">Expected structure:<br>' +
              '<code class="bg-gray-100 px-2 py-1 rounded">RESOURCES_STUDYPEDIA/{courseId}/semesters/{semesterId}/courseunits/{unitId}</code></p>' +
@@ -782,7 +599,7 @@
          const main = document.getElementById('main-content');
          if (main) {
            main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 w-full max-w-4xl mx-auto text-center">' +
-             '<h2 class="text-2xl font-bold text-red-600 mb-2">?? Error Loading Documents</h2>' +
+             '<h2 class="text-2xl font-bold text-red-600 mb-2"><span aria-hidden="true">??</span> Error Loading Documents</h2>' +
              '<p class="text-gray-600">' + err.message + '</p>' +
              '<p class="text-gray-500 text-sm mt-2">Expected structure:<br>' +
              '<code class="bg-gray-100 px-2 py-1 rounded">RESOURCES_STUDYPEDIA/{courseId}/semesters/{semesterId}/courseunits/{unitId}/documents/{docId}</code></p>' +
@@ -831,7 +648,7 @@
         if (main) {
           main.innerHTML = '<div class="bg-white/95 backdrop-blur-sm rounded-2xl p-4 w-full max-w-6xl mx-auto text-left" style="height:85vh;">' +
             '<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-3 gap-3">' +
-            '<h2 class="text-xl sm:text-2xl font-bold text-green-900">?? Study Materials</h2>' +
+            '<h2 class="text-xl sm:text-2xl font-bold text-green-900"><span aria-hidden="true">??</span> Study Materials</h2>' +
             '<button onclick="window.goToPage(\'home\')" class="btn-primary text-sm py-2 px-4">? Back to Home</button>' +
             '</div>' +
             '<iframe src="https://studypedia.kshs.ac.ug" class="w-full rounded-xl border-2 border-green-200" style="height: calc(85vh - 70px);"></iframe>' +
@@ -841,7 +658,7 @@
       else if (page === 'semesters') { selectedSemester = null; selectedUnit = null; renderSemestersList(); }
       else if (page === 'units') { selectedUnit = null; renderUnitsList(); }
        else if (page === 'library-guide') {
-         window.open('LIBRARY GUIDE.pdf', '_self');
+         window.open('LIBRARY GUIDE.pdf', '_blank');
       }
     };
     
