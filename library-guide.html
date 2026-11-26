@@ -90,8 +90,8 @@
           </div>
         </div>
         <div id="guide-status" class="bg-gray-50 px-4 py-3 text-center text-sm text-gray-600" role="status" aria-live="polite">Loading the library guide…</div>
-        <div id="guide-page-stage" class="flex justify-center overflow-auto bg-gray-200 p-2 md:p-5" style="height:78vh;min-height:620px;overscroll-behavior:contain;">
-          <canvas id="guide-canvas" class="hidden max-w-none bg-white shadow-lg" aria-label="Current page of the library guide"></canvas>
+        <div id="guide-page-stage" class="bg-gray-200 px-2 py-5 md:px-6 md:py-8 space-y-6" style="overflow:visible;overscroll-behavior:auto;">
+          <div id="guide-pages" class="mx-auto flex w-full max-w-5xl flex-col items-center gap-6" aria-label="All pages of the library guide"></div>
         </div>
       </section>
 
@@ -136,105 +136,131 @@
       if (menu) menu.classList.toggle('hidden');
     };
 
-    // PDF.js renders the guide directly into this page, without a native PDF toolbar.
+    // Render every PDF page in a continuous document flow so visitors can scroll naturally.
     (async function initialiseGuideReader() {
       const status = document.getElementById('guide-status');
       const stage = document.getElementById('guide-page-stage');
-      const canvas = document.getElementById('guide-canvas');
+      const pagesContainer = document.getElementById('guide-pages');
       const pageInput = document.getElementById('guide-page');
       const pageCount = document.getElementById('guide-page-count');
       const previous = document.getElementById('guide-prev');
       const next = document.getElementById('guide-next');
       const zoomLabel = document.getElementById('guide-zoom-label');
       const reader = document.getElementById('guide-reader');
-      const context = canvas.getContext('2d', { alpha: false });
       let pdf = null;
       let pageNumber = 1;
       let zoom = 0;
-      let renderTask = null;
+      let pageElements = [];
+      let rendering = false;
 
-      async function renderPage() {
-        if (!pdf) return;
-        if (renderTask) {
-          try { renderTask.cancel(); await renderTask.promise; } catch (error) {}
-          renderTask = null;
+      function fitScale(page) {
+        const width = Math.max(280, pagesContainer.clientWidth - 24);
+        return Math.min(1.8, width / page.getViewport({ scale: 1 }).width);
+      }
+
+      async function renderAllPages() {
+        if (!pdf || rendering) return;
+        rendering = true;
+        status.textContent = 'Preparing your library guide…';
+        pagesContainer.replaceChildren();
+        pageElements = [];
+        try {
+          for (let number = 1; number <= pdf.numPages; number++) {
+            status.textContent = 'Loading page ' + number + ' of ' + pdf.numPages + '…';
+            const page = await pdf.getPage(number);
+            const scale = zoom || fitScale(page);
+            const viewport = page.getViewport({ scale });
+            const ratio = Math.min(window.devicePixelRatio || 1, 2);
+            const wrapper = document.createElement('section');
+            wrapper.id = 'guide-page-' + number;
+            wrapper.className = 'w-full flex flex-col items-center gap-2 scroll-mt-24';
+            const label = document.createElement('p');
+            label.className = 'text-xs font-semibold tracking-wide text-gray-600';
+            label.textContent = 'PAGE ' + number + ' OF ' + pdf.numPages;
+            const canvas = document.createElement('canvas');
+            canvas.className = 'block max-w-full h-auto bg-white shadow-lg';
+            canvas.setAttribute('aria-label', 'Page ' + number + ' of the library guide');
+            canvas.width = Math.floor(viewport.width * ratio);
+            canvas.height = Math.floor(viewport.height * ratio);
+            canvas.style.width = Math.floor(viewport.width) + 'px';
+            canvas.style.maxWidth = '100%';
+            canvas.style.height = 'auto';
+            wrapper.append(label, canvas);
+            pagesContainer.appendChild(wrapper);
+            pageElements.push(wrapper);
+            const context = canvas.getContext('2d', { alpha: false });
+            context.setTransform(ratio, 0, 0, ratio, 0, 0);
+            await page.render({ canvasContext: context, viewport }).promise;
+          }
+          status.textContent = 'Library guide loaded — scroll down to read every page.';
+          pageInput.max = String(pdf.numPages);
+          pageCount.textContent = 'of ' + pdf.numPages;
+          updateControls();
+        } catch (error) {
+          console.error('Library guide page render error:', error);
+          status.textContent = 'Some pages could not be displayed. Please refresh the page to try again.';
+        } finally {
+          rendering = false;
         }
-        status.textContent = 'Rendering page ' + pageNumber + '…';
-        const page = await pdf.getPage(pageNumber);
-        const natural = page.getViewport({ scale: 1 });
-        const available = Math.max(300, stage.clientWidth - 40);
-        const fit = Math.min(1.8, available / natural.width);
-        const scale = (zoom || fit) * (zoom ? 1 : 1);
-        const viewport = page.getViewport({ scale });
-        const ratio = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = Math.floor(viewport.width * ratio);
-        canvas.height = Math.floor(viewport.height * ratio);
-        canvas.style.width = Math.floor(viewport.width) + 'px';
-        canvas.style.height = Math.floor(viewport.height) + 'px';
-        context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        renderTask = page.render({ canvasContext: context, viewport });
-        await renderTask.promise;
-        renderTask = null;
-        canvas.classList.remove('hidden');
-        status.textContent = 'Library guide loaded';
-        pageInput.value = String(pageNumber);
-        pageInput.max = String(pdf.numPages);
-        pageCount.textContent = 'of ' + pdf.numPages;
+      }
+
+      function updateControls() {
         previous.disabled = pageNumber <= 1;
-        next.disabled = pageNumber >= pdf.numPages;
+        next.disabled = pageNumber >= (pdf ? pdf.numPages : 1);
+        pageInput.value = String(pageNumber);
         zoomLabel.textContent = zoom ? Math.round(zoom * 100) + '%' : 'Fit';
       }
 
-      previous.addEventListener('click', async () => {
-        if (pageNumber > 1) { pageNumber--; await renderPage(); stage.scrollTop = 0; }
-      });
-      next.addEventListener('click', async () => {
-        if (pdf && pageNumber < pdf.numPages) { pageNumber++; await renderPage(); stage.scrollTop = 0; }
-      });
-      pageInput.addEventListener('change', async () => {
+      function goToPage(number) {
         if (!pdf) return;
-        pageNumber = Math.max(1, Math.min(pdf.numPages, Number(pageInput.value) || 1));
-        await renderPage();
-        stage.scrollTop = 0;
-      });
-      document.getElementById('guide-zoom-in').addEventListener('click', async () => {
-        const page = await pdf.getPage(pageNumber);
-        const fit = Math.min(1.8, Math.max(300, stage.clientWidth - 40) / page.getViewport({scale:1}).width);
-        zoom = Math.min(3, (zoom || fit) + 0.15);
-        await renderPage();
-      });
-      document.getElementById('guide-zoom-out').addEventListener('click', async () => {
-        const page = await pdf.getPage(pageNumber);
-        const fit = Math.min(1.8, Math.max(300, stage.clientWidth - 40) / page.getViewport({scale:1}).width);
-        zoom = Math.max(0.45, (zoom || fit) - 0.15);
-        await renderPage();
-      });
+        pageNumber = Math.max(1, Math.min(pdf.numPages, number));
+        const target = pageElements[pageNumber - 1];
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        updateControls();
+      }
+
+      previous.addEventListener('click', () => goToPage(pageNumber - 1));
+      next.addEventListener('click', () => goToPage(pageNumber + 1));
+      pageInput.addEventListener('change', () => goToPage(Number(pageInput.value) || 1));
+
+      async function changeZoom(direction) {
+        if (!pdf) return;
+        zoom = zoom || Math.min(1.8, Math.max(280, pagesContainer.clientWidth - 24) / (await pdf.getPage(pageNumber)).getViewport({ scale: 1 }).width);
+        zoom = Math.max(0.45, Math.min(2.5, zoom + direction));
+        await renderAllPages();
+        goToPage(pageNumber);
+      }
+      document.getElementById('guide-zoom-in').addEventListener('click', () => changeZoom(0.15));
+      document.getElementById('guide-zoom-out').addEventListener('click', () => changeZoom(-0.15));
+
       document.getElementById('guide-fullscreen').addEventListener('click', async () => {
         try {
           if (!document.fullscreenElement) await reader.requestFullscreen();
           else await document.exitFullscreen();
-        } catch (error) { status.textContent = 'Full screen is not available in this browser.'; }
+        } catch (error) {
+          status.textContent = 'Full screen is not available in this browser.';
+        }
       });
+
       let resizeTimer;
       window.addEventListener('resize', () => {
         if (!pdf || zoom) return;
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => renderPage().catch(showError), 150);
+        resizeTimer = setTimeout(() => {
+          const current = pageNumber;
+          renderAllPages().then(() => goToPage(current));
+        }, 200);
       });
-      function showError(error) {
-        console.error('Library guide reader error:', error);
-        status.textContent = 'The guide could not be loaded. Please refresh the page or try again later.';
-      }
 
       try {
         const pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs');
         pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';
-        const loading = pdfjs.getDocument({ url: 'LIBRARY%20GUIDE.pdf' });
-        pdf = await loading.promise;
+        pdf = await pdfjs.getDocument({ url: 'LIBRARY%20GUIDE.pdf' }).promise;
         pageCount.textContent = 'of ' + pdf.numPages;
-        await renderPage();
+        await renderAllPages();
       } catch (error) {
-        showError(error);
+        console.error('Library guide reader error:', error);
+        status.textContent = 'The guide could not be loaded. Please refresh the page or try again later.';
       }
     })();
   </script>
