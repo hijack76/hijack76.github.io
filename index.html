@@ -210,7 +210,21 @@
        outline: 3px solid var(--kshs-yellow);
        outline-offset: 2px;
      }
-  </style>
+  
+    .library-site-header{background:linear-gradient(112deg,#103f20 0%,#17602c 52%,#104822 100%);border-bottom:3px solid #e8bd45;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+    .library-brand-mark{display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(245,211,107,.55);border-radius:14px;color:#f5d36b;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 12px rgba(0,0,0,.12)}
+    .library-nav-group{align-items:center;gap:3px;padding:5px;border:1px solid rgba(255,255,255,.14);border-radius:15px;background:rgba(0,0,0,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+    .library-nav-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 13px;border-radius:10px;color:rgba(255,255,255,.86);font-size:12px;font-weight:650;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s}
+    .library-nav-link:hover,.library-nav-link.active,.library-nav-group details[open]>summary{color:#173f1c;background:#f5d36b;font-weight:800}
+    .library-nav-group details{position:relative}.library-nav-group summary{list-style:none}.library-nav-group summary::-webkit-details-marker{display:none}
+    .library-dropdown{position:absolute;top:calc(100% + 12px);right:0;width:270px;padding:8px;border:1px solid rgba(255,255,255,.15);border-radius:14px;background:#10451a;box-shadow:0 18px 38px rgba(0,0,0,.28)}
+    .library-dropdown a{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:9px;color:#fff;font-size:13px;font-weight:650}.library-dropdown a span{color:rgba(255,255,255,.58);font-size:11px;font-weight:400}.library-dropdown a:hover{background:rgba(255,255,255,.1);color:#f5d36b}
+    .library-menu-toggle{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border:1px solid rgba(255,255,255,.25);border-radius:12px;background:rgba(255,255,255,.1);color:#fff;font-size:13px;font-weight:650}
+    .library-menu-link{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:0 15px;border:1px solid rgba(255,255,255,.12);border-radius:12px;color:#fff;font-weight:600;background:rgba(255,255,255,.045)}
+    .library-menu-link:hover,.library-menu-link.active{color:#ffc107;border-color:rgba(255,193,7,.5);background:rgba(255,193,7,.09)}
+    .library-mobile-resources>summary{list-style:none;cursor:pointer}.library-mobile-resources>summary::-webkit-details-marker{display:none}
+    @media(max-width:1023px){.library-site-header .header-inner{min-height:66px}}
+</style>
 </head>
 <body>
 
@@ -226,49 +240,55 @@
 
   <div id="app" class="relative z-10 flex flex-col min-h-screen">
     
-    <header>
-      <div class="container mx-auto px-4 py-2 flex items-center justify-between">
-        <div class="flex items-center space-x-4 flex-shrink-0">
-          <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="h-11 w-auto object-contain">
-          <span class="text-white font-bold text-base hidden md:block">KSHS LIBRARY</span>
+    <header class="library-site-header sticky top-0 z-50 w-full">
+  <div class="header-inner container mx-auto flex min-h-[74px] items-center justify-between gap-4 px-4 py-3">
+    <a href="./" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home">
+      <span class="library-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" class="h-7 w-7" fill="none"><path d="M4.5 7.5c4.2-.9 8.1-.1 11.5 2.4v16c-3.4-2.5-7.3-3.3-11.5-2.4v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M27.5 7.5c-4.2-.9-8.1-.1-11.5 2.4v16c3.4-2.5 7.3-3.3 11.5-2.4v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 10v16" stroke="currentColor" stroke-width="1.6"/></svg></span>
+      <span class="flex min-w-0 flex-col leading-tight"><span class="text-sm sm:text-base font-extrabold tracking-[.13em] text-white">KSHS LIBRARY</span><span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.2em] text-[#f5d36b]/90">Knowledge · Learning · Research</span></span>
+    </a>
+    <nav aria-label="Main navigation" class="library-nav-group hidden lg:flex">
+      <a href="./" class="library-nav-link active" aria-current="page">Home</a>
+      <a href="library-guide.html" class="library-nav-link ">Library Guide</a>
+      <details class="library-resources">
+        <summary class="library-nav-link">Resources <svg class="ml-2 h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 4 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="library-dropdown">
+          <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer">Courses <span>Academic programmes</span></a>
+          <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Institutional Repository <span>Research and publications</span></a>
+          <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer">Hinari <span>Health research resources</span></a>
+          <a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer">OPAC &amp; E-Library <span>Search library collections</span></a>
+          <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Study Materials <span>Learning materials</span></a>
         </div>
-        <nav class="hidden lg:flex space-x-5 items-center">
-          <a href="#" onclick="goToPage('home')" class="nav-link home-link">Home</a>
-          <a href="library-guide.html" class="nav-link guide-link">Library Guide</a>
-          <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer" class="nav-link courses-link">Courses</a>
-          <a href="http://127.0.0.1:4000/home" target="_blank" rel="noopener noreferrer" class="nav-link repo-link">Institutional Repository</a>
-          <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="nav-link hinari-link">Hinari</a>
-          <a href="http://127.0.1.1/cgi-bin/koha/opac-main.pl" target="_blank" rel="noopener noreferrer" class="nav-link opac-link">OPAC</a>
-          <a href="http://127.0.1.1/cgi-bin/koha/opac-main.pl" target="_blank" rel="noopener noreferrer" class="nav-link elib-link">E-Library</a>
-          <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="nav-link studymaterials-link">Studymaterials</a>
-        </nav>
-        <div class="flex items-center space-x-2">
-          <button id="menu-button" class="lg:hidden p-2 text-white" onclick="toggleMenu()">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-          </button>
-        </div>
-      </div>
-    </header>
+      </details>
+    </nav>
+    <button id="menu-button" type="button" class="library-menu-toggle lg:hidden" onclick="toggleMenu()" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open navigation menu">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span>
+    </button>
+  </div>
+</header>
 
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-[#1b5e20] z-40 overflow-y-auto">
-      <div class="p-4 min-h-screen flex flex-col">
-        <button onclick="toggleMenu()" class="w-full flex justify-end p-2 text-white">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        <nav class="flex flex-col space-y-4 mt-8 flex-grow">
-          <a href="#" onclick="toggleMenu(); goToPage('home')" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Home</a>
-          <a href="library-guide.html" onclick="toggleMenu()" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Library Guide</a>
-          <a href="https://kshs.ac.ug/programs" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Courses</a>
-          <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Institutional Repository</a>
-          <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Hinari</a>
-          <a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">OPAC</a>
-          <a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">E-Library</a>
-          <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Studymaterials</a>
-        </nav>
-      </div>
+    <div id="mobile-menu" class="hidden fixed inset-0 z-[60] overflow-y-auto bg-[#10451a]">
+  <div class="mx-auto flex min-h-full w-full max-w-xl flex-col px-5 pb-8 pt-5">
+    <div class="mb-8 flex items-center justify-between border-b border-white/15 pb-5">
+      <div class="flex items-center gap-3"><span class="library-brand-mark" aria-hidden="true">K</span><span class="text-sm font-extrabold tracking-[.08em] text-white">KSHS LIBRARY</span></div>
+      <button type="button" onclick="toggleMenu()" class="rounded-xl border border-white/20 p-2 text-white hover:bg-white/10" aria-label="Close menu"><svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
+    <p class="mb-3 px-1 text-[10px] font-bold uppercase tracking-[.2em] text-green-100/60">Explore the library</p>
+    <nav aria-label="Mobile navigation" class="flex flex-col gap-2">
+      <a href="./" class="library-menu-link active" aria-current="page">Home</a>
+      <a href="library-guide.html" class="library-menu-link ">Library Guide</a>
+      <details class="library-mobile-resources"><summary class="library-menu-link">Resources <span aria-hidden="true">⌄</span></summary><div class="mt-2 flex flex-col gap-2 pl-3">
+        <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer" class="library-menu-link">Courses</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-menu-link">Institutional Repository</a>
+        <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="library-menu-link">Hinari</a>
+        <a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer" class="library-menu-link">OPAC &amp; E-Library</a>
+        <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="library-menu-link">Study Materials</a>
+      </div></details>
+    </nav>
+    <p class="mt-auto pt-8 text-center text-xs text-green-100/50">Kampala School of Health Sciences · Main Library</p>
+  </div>
+</div>
 
-     <main id="main-content" class="flex-grow flex items-center justify-center p-4 md:p-6 relative" role="main" aria-label="Main content">
+<main id="main-content" class="flex-grow flex items-center justify-center p-4 md:p-6 relative" role="main" aria-label="Main content">
        <div class="text-center text-white max-w-4xl px-2 md:px-4 z-10 w-full">
          <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto mb-6 object-contain border-4 border-white/20 rounded-xl">
         <h1 class="text-2xl sm:text-4xl md:text-6xl font-black mb-4 shadow-text leading-tight">Kampala School Of Health Sciences Main Library</h1>
