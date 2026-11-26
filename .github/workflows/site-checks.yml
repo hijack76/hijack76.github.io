@@ -67,7 +67,7 @@ jobs:
                   print(f"  - {item}")
               sys.exit(1)
 
-          images_dir = root / "site images"
+          images_dir = root / "site-images"
           expected = [images_dir / f"image{i}.webp" for i in range(1, 46)]
           absent = [str(path) for path in expected if not path.is_file()]
           if absent:
