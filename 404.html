@@ -36,13 +36,55 @@
 })();
 </script>
 
+<style id="mobile-navigation-visibility">
+    @media (max-width: 1023px) {
+      .library-site-header .header-inner { align-items: center; row-gap: 8px; }
+      .library-mobile-nav { display: flex !important; overflow: visible; }
+      .library-mobile-link {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: 38px; padding: 0 13px; border: 1px solid rgba(255,255,255,.16);
+        border-radius: 10px; color: rgba(255,255,255,.94); background: rgba(0,0,0,.13);
+        font-size: 12px; font-weight: 650; white-space: nowrap;
+      }
+      .library-mobile-link.active { background: rgba(255,255,255,.17); color: #fff; }
+      .library-mobile-resources { position: relative; }
+      .library-mobile-resources > summary { list-style: none; cursor: pointer; }
+      .library-mobile-resources > summary::-webkit-details-marker { display: none; }
+      .library-mobile-resources .library-dropdown {
+        position: absolute; top: calc(100% + 8px); right: 0; z-index: 100;
+        width: min(270px, calc(100vw - 24px)); padding: 8px;
+        border: 1px solid rgba(255,255,255,.18); border-radius: 12px;
+        background: #10451a; box-shadow: 0 16px 32px rgba(0,0,0,.35);
+      }
+      .library-mobile-resources .library-dropdown a {
+        display: block; padding: 11px 12px; border-radius: 8px;
+        color: #fff; font-size: 13px;
+      }
+      .library-mobile-resources .library-dropdown a:hover { background: rgba(255,255,255,.12); }
+    }
+    @media (min-width: 1024px) { .library-mobile-nav { display: none !important; } }
+  </style>
 </head>
 <body class="bg-[#1b5e20] text-white min-h-flex flex-col">
   <a href="#" class="skip-link">Skip to main content</a>
 
-  <header class="library-site-header sticky top-0 z-50 w-full"><div class="header-inner container mx-auto flex min-h-[74px] items-center justify-between gap-4 px-4 py-3">
+  <header class="library-site-header sticky top-0 z-50 w-full"><div class="header-inner container mx-auto flex flex-wrap min-h-[74px] items-center justify-between gap-3 px-4 py-3">
 <a href="/" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home"><span class="library-brand-mark" aria-hidden="true"><img src="site-images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span><span class="flex flex-col leading-tight"><span class="text-sm sm:text-base font-extrabold tracking-[.13em] text-white">KSHS LIBRARY</span><span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.2em] text-[#f5d36b]/90">Knowledge · Learning · Research</span></span></a>
-<nav aria-label="Main navigation" class="library-nav-group hidden lg:flex"><a href="/" class="library-nav-link">Home</a><a href="/library-guide" class="library-nav-link">Library Guide</a><details class="library-resources"><summary class="library-nav-link">Resources <span aria-hidden="true">⌄</span></summary><div class="library-dropdown"><a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer">Courses</a><a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Institutional Repository</a><a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer">Hinari</a><a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer">OPAC &amp; E-Library</a><a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Study Materials</a></div></details></nav></div></header><main id="main-content" class="flex-grow flex items-center justify-center p-4 md:p-6 relative" role="main" aria-label="Main content">
+<nav aria-label="Main navigation" class="library-nav-group hidden lg:flex"><a href="/" class="library-nav-link">Home</a><a href="/library-guide" class="library-nav-link">Library Guide</a><details class="library-resources"><summary class="library-nav-link">Resources <span aria-hidden="true">⌄</span></summary><div class="library-dropdown"><a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer">Courses</a><a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Institutional Repository</a><a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer">Hinari</a><a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer">OPAC &amp; E-Library</a><a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Study Materials</a></div></details></nav>
+    <nav aria-label="Mobile navigation" class="library-mobile-nav flex lg:hidden w-full items-center justify-center gap-2 pb-2">
+      <a href="/" class="library-mobile-link">Home</a>
+      <a href="/library-guide" class="library-mobile-link">Library Guide</a>
+      <details class="library-mobile-resources">
+        <summary class="library-mobile-link">Resources <span aria-hidden="true">⌄</span></summary>
+        <div class="library-dropdown">
+          <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer">Courses</a>
+          <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Institutional Repository</a>
+          <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer">Hinari</a>
+          <a href="http://192.168.42.172:8000" target="_blank" rel="noopener noreferrer">OPAC &amp; E-Library</a>
+          <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer">Study Materials</a>
+        </div>
+      </details>
+    </nav></div></header><main id="main-content" class="flex-grow flex items-center justify-center p-4 md:p-6 relative" role="main" aria-label="Main content">
     <div class="text-center max-w-xl px-2 md:px-4 z-10 w-full">
       <img src="/site-images/logo%20.png" alt="KSHS Logo" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto mb-6 object-contain border-4 border-white/20 rounded-xl" loading="lazy">
       <h1 class="text-4xl md:text-6xl font-black mb-4 shadow-text leading-tight">404</h1>
