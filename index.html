@@ -717,6 +717,9 @@
        }
        
        main.innerHTML = html;
+       main.querySelectorAll('.js-read-document').forEach(button => {
+         button.addEventListener('click', () => window.openDocument(button.dataset.filePath, button.dataset.documentTitle));
+       });
      }
 
     window.renderDocumentsList = renderDocumentsList;
