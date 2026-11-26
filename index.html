@@ -706,7 +706,7 @@
           if (doc.description) html += '<div class="doc-desc">' + doc.description + '</div>';
           html += '</div>';
           if (filePath) {
-            html += '<div class="flex gap-2"><button type="button" onclick="window.openDocument(\'' + encodeURIComponent(filePath) + '\', \'' + encodeURIComponent(doc.title || doc.id || 'Untitled Document') + '\')" class="btn-green">Read</button><a href="' + filePath + '" download class="btn-green" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">Download</a></div>';
+            html += '<button type="button" onclick="window.openDocument(\\'' + encodeURIComponent(filePath) + '\\', \\' + encodeURIComponent(doc.title || doc.id || 'Untitled Document') + '\\')" class="btn-green">Read</button>';
            }
            html += '</div>';
          });
@@ -718,22 +718,122 @@
 
     window.renderDocumentsList = renderDocumentsList;
 
-    window.openDocument = (encodedPath, encodedTitle) => {
+    window.openDocument = async (encodedPath, encodedTitle) => {
       const main = document.getElementById('main-content');
       if (!main) return;
       const filePath = decodeURIComponent(encodedPath);
       const title = decodeURIComponent(encodedTitle);
-      const viewerUrl = filePath + (filePath.includes('#') ? '&' : '#') + 'toolbar=0&navpanes=0&view=FitH';
+
+      if (window.currentPdfDocument) {
+        try { await window.currentPdfDocument.destroy(); } catch (e) {}
+        window.currentPdfDocument = null;
+      }
+
       main.innerHTML =
         '<section class="bg-white/95 backdrop-blur-sm rounded-2xl p-4 md:p-6 w-full max-w-6xl mx-auto text-left">' +
           '<div class="flex items-center justify-between gap-3 mb-4">' +
-            '<h2 class="text-lg md:text-2xl font-bold text-green-900 break-words"></h2>' +
+            '<h2 id="pdf-document-title" class="text-lg md:text-2xl font-bold text-green-900 break-words min-w-0"></h2>' +
             '<button type="button" onclick="window.renderDocumentsList()" class="btn-green shrink-0">Back to rules</button>' +
           '</div>' +
-          '<iframe title="Document reader" src="' + viewerUrl.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '" class="w-full rounded-xl border border-green-200 bg-white" style="height:78vh; min-height:520px;" loading="lazy"></iframe>' +
+          '<div id="pdf-reader" class="rounded-xl border border-green-200 bg-gray-100 overflow-hidden" oncontextmenu="return false" style="user-select:none;-webkit-user-select:none;">' +
+            '<div class="flex flex-wrap items-center justify-center gap-3 p-3 bg-green-900 text-white" role="toolbar" aria-label="Document navigation">' +
+              '<button id="pdf-prev" type="button" class="px-3 py-2 rounded bg-white/15 hover:bg-white/25 disabled:opacity-40" aria-label="Previous page">Previous</button>' +
+              '<span id="pdf-page-status" class="text-sm font-semibold" aria-live="polite">Loading document...</span>' +
+              '<button id="pdf-next" type="button" class="px-3 py-2 rounded bg-white/15 hover:bg-white/25 disabled:opacity-40" aria-label="Next page">Next</button>' +
+              '<span class="hidden sm:inline-block w-px h-6 bg-white/30"></span>' +
+              '<button id="pdf-zoom-out" type="button" class="px-3 py-2 rounded bg-white/15 hover:bg-white/25" aria-label="Zoom out">−</button>' +
+              '<span id="pdf-zoom-status" class="text-sm">100%</span>' +
+              '<button id="pdf-zoom-in" type="button" class="px-3 py-2 rounded bg-white/15 hover:bg-white/25" aria-label="Zoom in">+</button>' +
+            '</div>' +
+            '<div id="pdf-page-container" class="p-2 md:p-4 flex justify-center overflow-auto" style="height:75vh;min-height:480px;overscroll-behavior:contain;">' +
+              '<div id="pdf-loading" class="text-gray-600 py-10">Loading document...</div>' +
+              '<canvas id="pdf-page-canvas" aria-label="PDF page" style="display:none;max-width:100%;height:auto;box-shadow:0 2px 12px rgba(0,0,0,.15);"></canvas>' +
+            '</div>' +
+          '</div>' +
         '</section>';
-      main.querySelector('h2').textContent = title;
+
+      main.querySelector('#pdf-document-title').textContent = title;
       main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      const canvas = main.querySelector('#pdf-page-canvas');
+      const context = canvas.getContext('2d', { alpha: false });
+      const pageContainer = main.querySelector('#pdf-page-container');
+      const status = main.querySelector('#pdf-page-status');
+      const zoomStatus = main.querySelector('#pdf-zoom-status');
+      const loading = main.querySelector('#pdf-loading');
+      const previous = main.querySelector('#pdf-prev');
+      const next = main.querySelector('#pdf-next');
+      let pdf = null;
+      let pageNumber = 1;
+      let zoom = 1;
+      let renderTask = null;
+
+      const renderPage = async () => {
+        if (!pdf) return;
+        if (renderTask) {
+          try { renderTask.cancel(); await renderTask.promise; } catch (e) {}
+          renderTask = null;
+        }
+        const page = await pdf.getPage(pageNumber);
+        const baseViewport = page.getViewport({ scale: 1 });
+        const availableWidth = Math.max(280, pageContainer.clientWidth - 32);
+        const fitScale = Math.min(1.5, availableWidth / baseViewport.width);
+        const scale = fitScale * zoom;
+        const viewport = page.getViewport({ scale });
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(viewport.width * pixelRatio);
+        canvas.height = Math.floor(viewport.height * pixelRatio);
+        canvas.style.width = Math.floor(viewport.width) + 'px';
+        canvas.style.height = Math.floor(viewport.height) + 'px';
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        renderTask = page.render({ canvasContext: context, viewport });
+        await renderTask.promise;
+        renderTask = null;
+        loading.style.display = 'none';
+        canvas.style.display = 'block';
+        status.textContent = 'Page ' + pageNumber + ' of ' + pdf.numPages;
+        zoomStatus.textContent = Math.round(zoom * 100) + '%';
+        previous.disabled = pageNumber <= 1;
+        next.disabled = pageNumber >= pdf.numPages;
+      };
+
+      previous.addEventListener('click', async () => {
+        if (pageNumber > 1) { pageNumber--; await renderPage(); }
+      });
+      next.addEventListener('click', async () => {
+        if (pdf && pageNumber < pdf.numPages) { pageNumber++; await renderPage(); }
+      });
+      main.querySelector('#pdf-zoom-in').addEventListener('click', async () => {
+        zoom = Math.min(2.5, zoom + 0.15);
+        await renderPage();
+      });
+      main.querySelector('#pdf-zoom-out').addEventListener('click', async () => {
+        zoom = Math.max(0.6, zoom - 0.15);
+        await renderPage();
+      });
+
+      // Canvas-only rendering deliberately omits a selectable text layer and viewer
+      // controls for downloading, printing, or copying document content.
+      main.querySelector('#pdf-reader').addEventListener('keydown', event => {
+        if ((event.ctrlKey || event.metaKey) && ['c', 's', 'p'].includes(event.key.toLowerCase())) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
+      main.querySelector('#pdf-reader').setAttribute('tabindex', '0');
+
+      try {
+        const pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs');
+        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';
+        const loadingTask = pdfjs.getDocument({ url: filePath });
+        pdf = await loadingTask.promise;
+        window.currentPdfDocument = pdf;
+        await renderPage();
+      } catch (error) {
+        console.error('Unable to load PDF:', error);
+        loading.textContent = 'This document could not be displayed. Please try again later or contact the library administrator.';
+        status.textContent = 'Unable to load document';
+      }
     };
 
     async function fetchCourses() {
