@@ -72,10 +72,28 @@
         A guide to using KSHS Main Library services, resources, and study materials.
       </p>
 
-      <!-- PDF embedded inline so it opens as a page, not a separate window -->
-      <div class="bg-white rounded-xl shadow-xl overflow-hidden border border-white/20 w-full mx-auto">
-        <embed src="LIBRARY%20GUIDE.pdf" type="application/pdf" title="Library Guide PDF" style="display:block;width:100%;height:82vh;min-height:720px;border:0;">
-      </div>
+      <!-- PDF.js-powered reader: the browser's built-in PDF toolbar is not used. -->
+      <section id="guide-reader" class="w-full mx-auto text-left bg-white rounded-xl shadow-xl overflow-hidden border border-white/20" aria-label="Library guide reader">
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-green-950 text-white px-3 py-3 md:px-5">
+          <div class="font-semibold">Library Guide</div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="guide-prev" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25 disabled:opacity-40" disabled>Previous</button>
+            <label for="guide-page" class="sr-only">Page number</label>
+            <input id="guide-page" type="number" min="1" value="1" class="w-16 rounded-md px-2 py-2 text-center text-gray-900" aria-label="Page number">
+            <span id="guide-page-count" class="text-sm whitespace-nowrap">of …</span>
+            <button id="guide-next" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25" disabled>Next</button>
+            <span class="hidden sm:inline-block h-7 w-px bg-white/30"></span>
+            <button id="guide-zoom-out" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25" aria-label="Zoom out">−</button>
+            <span id="guide-zoom-label" class="min-w-12 text-center text-sm">Fit</span>
+            <button id="guide-zoom-in" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25" aria-label="Zoom in">+</button>
+            <button id="guide-fullscreen" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25">Full screen</button>
+          </div>
+        </div>
+        <div id="guide-status" class="bg-gray-50 px-4 py-3 text-center text-sm text-gray-600" role="status" aria-live="polite">Loading the library guide…</div>
+        <div id="guide-page-stage" class="flex justify-center overflow-auto bg-gray-200 p-2 md:p-5" style="height:78vh;min-height:620px;overscroll-behavior:contain;">
+          <canvas id="guide-canvas" class="hidden max-w-none bg-white shadow-lg" aria-label="Current page of the library guide"></canvas>
+        </div>
+      </section>
 
       <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
         <a href="./" class="btn-primary">Back to Home</a>
@@ -117,6 +135,108 @@
       const menu = document.getElementById('mobile-menu');
       if (menu) menu.classList.toggle('hidden');
     };
+
+    // PDF.js renders the guide directly into this page, without a native PDF toolbar.
+    (async function initialiseGuideReader() {
+      const status = document.getElementById('guide-status');
+      const stage = document.getElementById('guide-page-stage');
+      const canvas = document.getElementById('guide-canvas');
+      const pageInput = document.getElementById('guide-page');
+      const pageCount = document.getElementById('guide-page-count');
+      const previous = document.getElementById('guide-prev');
+      const next = document.getElementById('guide-next');
+      const zoomLabel = document.getElementById('guide-zoom-label');
+      const reader = document.getElementById('guide-reader');
+      const context = canvas.getContext('2d', { alpha: false });
+      let pdf = null;
+      let pageNumber = 1;
+      let zoom = 0;
+      let renderTask = null;
+
+      async function renderPage() {
+        if (!pdf) return;
+        if (renderTask) {
+          try { renderTask.cancel(); await renderTask.promise; } catch (error) {}
+          renderTask = null;
+        }
+        status.textContent = 'Rendering page ' + pageNumber + '…';
+        const page = await pdf.getPage(pageNumber);
+        const natural = page.getViewport({ scale: 1 });
+        const available = Math.max(300, stage.clientWidth - 40);
+        const fit = Math.min(1.8, available / natural.width);
+        const scale = (zoom || fit) * (zoom ? 1 : 1);
+        const viewport = page.getViewport({ scale });
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(viewport.width * ratio);
+        canvas.height = Math.floor(viewport.height * ratio);
+        canvas.style.width = Math.floor(viewport.width) + 'px';
+        canvas.style.height = Math.floor(viewport.height) + 'px';
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        renderTask = page.render({ canvasContext: context, viewport });
+        await renderTask.promise;
+        renderTask = null;
+        canvas.classList.remove('hidden');
+        status.textContent = 'Library guide loaded';
+        pageInput.value = String(pageNumber);
+        pageInput.max = String(pdf.numPages);
+        pageCount.textContent = 'of ' + pdf.numPages;
+        previous.disabled = pageNumber <= 1;
+        next.disabled = pageNumber >= pdf.numPages;
+        zoomLabel.textContent = zoom ? Math.round(zoom * 100) + '%' : 'Fit';
+      }
+
+      previous.addEventListener('click', async () => {
+        if (pageNumber > 1) { pageNumber--; await renderPage(); stage.scrollTop = 0; }
+      });
+      next.addEventListener('click', async () => {
+        if (pdf && pageNumber < pdf.numPages) { pageNumber++; await renderPage(); stage.scrollTop = 0; }
+      });
+      pageInput.addEventListener('change', async () => {
+        if (!pdf) return;
+        pageNumber = Math.max(1, Math.min(pdf.numPages, Number(pageInput.value) || 1));
+        await renderPage();
+        stage.scrollTop = 0;
+      });
+      document.getElementById('guide-zoom-in').addEventListener('click', async () => {
+        const page = await pdf.getPage(pageNumber);
+        const fit = Math.min(1.8, Math.max(300, stage.clientWidth - 40) / page.getViewport({scale:1}).width);
+        zoom = Math.min(3, (zoom || fit) + 0.15);
+        await renderPage();
+      });
+      document.getElementById('guide-zoom-out').addEventListener('click', async () => {
+        const page = await pdf.getPage(pageNumber);
+        const fit = Math.min(1.8, Math.max(300, stage.clientWidth - 40) / page.getViewport({scale:1}).width);
+        zoom = Math.max(0.45, (zoom || fit) - 0.15);
+        await renderPage();
+      });
+      document.getElementById('guide-fullscreen').addEventListener('click', async () => {
+        try {
+          if (!document.fullscreenElement) await reader.requestFullscreen();
+          else await document.exitFullscreen();
+        } catch (error) { status.textContent = 'Full screen is not available in this browser.'; }
+      });
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        if (!pdf || zoom) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => renderPage().catch(showError), 150);
+      });
+      function showError(error) {
+        console.error('Library guide reader error:', error);
+        status.textContent = 'The guide could not be loaded. Please refresh the page or try again later.';
+      }
+
+      try {
+        const pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs');
+        pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.min.mjs';
+        const loading = pdfjs.getDocument({ url: 'LIBRARY%20GUIDE.pdf' });
+        pdf = await loading.promise;
+        pageCount.textContent = 'of ' + pdf.numPages;
+        await renderPage();
+      } catch (error) {
+        showError(error);
+      }
+    })();
   </script>
 </body>
 </html>
