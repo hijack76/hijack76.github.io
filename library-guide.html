@@ -63,7 +63,7 @@
     }
   
     .library-site-header{background:linear-gradient(112deg,#103f20 0%,#17602c 52%,#104822 100%);border-bottom:3px solid #e8bd45;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-    .library-brand-mark{display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(245,211,107,.55);border-radius:14px;color:#f5d36b;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 12px rgba(0,0,0,.12)}
+    .library-brand-mark{display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(245,211,107,.55);border-radius:14px;color:inherit;background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 12px rgba(0,0,0,.12)}
     .library-nav-group{align-items:center;gap:3px;padding:5px;border:1px solid rgba(255,255,255,.14);border-radius:15px;background:rgba(0,0,0,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
     .library-nav-link{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 13px;border-radius:10px;color:rgba(255,255,255,.86);font-size:12px;font-weight:650;white-space:nowrap;cursor:pointer;transition:background .2s,color .2s}
     .library-nav-link:hover,.library-nav-link.active,.library-nav-group details[open]>summary{color:#173f1c;background:#f5d36b;font-weight:800}
@@ -80,7 +80,7 @@
   <header class="library-site-header sticky top-0 z-50 w-full">
   <div class="header-inner container mx-auto flex min-h-[74px] items-center justify-between gap-4 px-4 py-3">
     <a href="index.html" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home">
-      <span class="library-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" class="h-7 w-7" fill="none"><path d="M4.5 7.5c4.2-.9 8.1-.1 11.5 2.4v16c-3.4-2.5-7.3-3.3-11.5-2.4v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M27.5 7.5c-4.2-.9-8.1-.1-11.5 2.4v16c3.4-2.5 7.3-3.3 11.5-2.4v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 10v16" stroke="currentColor" stroke-width="1.6"/></svg></span>
+      <span class="library-brand-mark" aria-hidden="true"><img src="site%20images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span>
       <span class="flex min-w-0 flex-col leading-tight"><span class="text-sm sm:text-base font-extrabold tracking-[.13em] text-white">KSHS LIBRARY</span><span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.2em] text-[#f5d36b]/90">Knowledge · Learning · Research</span></span>
     </a>
     <nav aria-label="Main navigation" class="library-nav-group hidden lg:flex">
@@ -106,7 +106,7 @@
   <div id="mobile-menu" class="hidden fixed inset-0 z-[60] overflow-y-auto bg-[#10451a]">
   <div class="mx-auto flex min-h-full w-full max-w-xl flex-col px-5 pb-8 pt-5">
     <div class="mb-8 flex items-center justify-between border-b border-white/15 pb-5">
-      <div class="flex items-center gap-3"><span class="library-brand-mark" aria-hidden="true">K</span><span class="text-sm font-extrabold tracking-[.08em] text-white">KSHS LIBRARY</span></div>
+      <div class="flex items-center gap-3"><span class="library-brand-mark" aria-hidden="true"><img src="site%20images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span><span class="text-sm font-extrabold tracking-[.08em] text-white">KSHS LIBRARY</span></div>
       <button type="button" onclick="toggleMenu()" class="rounded-xl border border-white/20 p-2 text-white hover:bg-white/10" aria-label="Close menu"><svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
     </div>
     <p class="mb-3 px-1 text-[10px] font-bold uppercase tracking-[.2em] text-green-100/60">Explore the library</p>
