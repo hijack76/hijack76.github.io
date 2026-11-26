@@ -44,6 +44,25 @@
       background: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
+    .carousel-nav {
+      position: fixed; top: 50%; transform: translateY(-50%); z-index: 20;
+      display: flex; align-items: center; justify-content: center;
+      width: 48px; height: 64px; border: 1px solid rgba(255,255,255,.45);
+      border-radius: 12px; color: white; background: rgba(0,0,0,.38);
+      backdrop-filter: blur(6px); cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .carousel-nav:hover { background: rgba(27,94,32,.9); transform: translateY(-50%) scale(1.06); }
+    .carousel-nav:focus-visible { outline: 3px solid var(--kshs-yellow); outline-offset: 3px; }
+    .carousel-nav.prev { left: 16px; }
+    .carousel-nav.next { right: 16px; }
+    .carousel-nav svg { width: 28px; height: 28px; }
+    @media (max-width: 640px) {
+      .carousel-nav { width: 38px; height: 50px; }
+      .carousel-nav.prev { left: 8px; }
+      .carousel-nav.next { right: 8px; }
+    }
+
 
     header {
       background-color: var(--kshs-green) !important;
@@ -163,6 +182,13 @@
 
   <div id="bg-container"></div>
   <div class="hero-overlay"></div>
+
+  <button type="button" class="carousel-nav prev" aria-label="Previous background image" title="Previous image" onclick="window.changeBackgroundSlide(-1)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+  </button>
+  <button type="button" class="carousel-nav next" aria-label="Next background image" title="Next image" onclick="window.changeBackgroundSlide(1)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg>
+  </button>
 
   <div id="app" class="relative z-10 flex flex-col min-h-screen">
     
@@ -400,23 +426,42 @@
        }
        const slides = document.querySelectorAll('.bg-slide');
        let currentSlide = 0;
-       // Preload only first few images
-       for (let i = 1; i <= Math.min(CONFIG.carousel.preloadCount, CONFIG.carousel.totalImages); i++) { 
+
+       // Preload only first few images.
+       for (let i = 1; i <= Math.min(CONFIG.carousel.preloadCount, CONFIG.carousel.totalImages); i++) {
          const preloadName = `image${i}.webp`;
-         new Image().src = `site images/${preloadName}`; 
+         new Image().src = `site images/${preloadName}`;
        }
-       window.carouselInterval = setInterval(() => {
+
+       function showBackgroundSlide(index) {
          slides[currentSlide].classList.remove('active');
-         currentSlide = (currentSlide + 1) % slides.length;
+         currentSlide = (index + slides.length) % slides.length;
          slides[currentSlide].classList.add('active');
-         // Preload upcoming image
+         slides.forEach((slide, slideIndex) => {
+           slide.setAttribute('aria-hidden', slideIndex === currentSlide ? 'false' : 'true');
+         });
+
          const nextIndex = (currentSlide + 1) % slides.length;
          if (!slides[nextIndex].dataset.loaded) {
            const nextName = `image${nextIndex + 1}.webp`;
            new Image().src = `site images/${nextName}`;
            slides[nextIndex].dataset.loaded = 'true';
          }
-       }, CONFIG.carousel.interval);
+       }
+
+       function startCarouselTimer() {
+         if (window.carouselInterval) clearInterval(window.carouselInterval);
+         window.carouselInterval = setInterval(() => {
+           showBackgroundSlide(currentSlide + 1);
+         }, CONFIG.carousel.interval);
+       }
+
+       window.changeBackgroundSlide = (direction) => {
+         showBackgroundSlide(currentSlide + direction);
+         startCarouselTimer();
+       };
+
+       startCarouselTimer();
      }
 
     const returnBtn = document.getElementById("return-top-btn");
