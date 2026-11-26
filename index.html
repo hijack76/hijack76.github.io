@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="canonical" href="https://library.kshs.ac.ug/">
+  <script>
+    if (window.location.pathname === "/index.html") {
+      window.location.replace("/" + window.location.search + window.location.hash);
+    }
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kampala School of Health Sciences Main Library</title>
@@ -242,12 +248,12 @@
     
     <header class="library-site-header sticky top-0 z-50 w-full">
   <div class="header-inner container mx-auto flex min-h-[74px] items-center justify-between gap-4 px-4 py-3">
-    <a href="index.html" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home">
+    <a href="/" class="flex min-w-0 items-center gap-3" aria-label="KSHS Library home">
       <span class="library-brand-mark" aria-hidden="true"><img src="site%20images/logo%20.png" alt="Kampala School of Health Sciences logo" class="h-10 w-10 sm:h-11 sm:w-11 rounded-lg object-contain bg-white p-1 shadow-sm"></span>
       <span class="flex min-w-0 flex-col leading-tight"><span class="text-sm sm:text-base font-extrabold tracking-[.13em] text-white">KSHS LIBRARY</span><span class="mt-1 hidden sm:block text-[9px] font-semibold uppercase tracking-[.2em] text-[#f5d36b]/90">Knowledge · Learning · Research</span></span>
     </a>
     <nav aria-label="Main navigation" class="library-nav-group hidden lg:flex">
-      <a href="index.html" class="library-nav-link active" aria-current="page">Home</a>
+      <a href="/" class="library-nav-link active" aria-current="page">Home</a>
       <a href="library-guide.html" class="library-nav-link ">Library Guide</a>
       <details class="library-resources">
         <summary class="library-nav-link">Resources <svg class="ml-2 h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 4 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
@@ -274,7 +280,7 @@
     </div>
     <p class="mb-3 px-1 text-[10px] font-bold uppercase tracking-[.2em] text-green-100/60">Explore the library</p>
     <nav aria-label="Mobile navigation" class="flex flex-col gap-2">
-      <a href="index.html" class="library-menu-link active" aria-current="page">Home</a>
+      <a href="/" class="library-menu-link active" aria-current="page">Home</a>
       <a href="library-guide.html" class="library-menu-link ">Library Guide</a>
       <details class="library-mobile-resources"><summary class="library-menu-link">Resources <span aria-hidden="true">⌄</span></summary><div class="mt-2 flex flex-col gap-2 pl-3">
         <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer" class="library-menu-link">Courses</a>
