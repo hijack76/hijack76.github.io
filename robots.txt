@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://library.kshs.ac.ug/sitemap.xml

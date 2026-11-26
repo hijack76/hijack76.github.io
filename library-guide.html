@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Guide | Kampala School of Health Sciences Main Library</title>
+  <link rel="canonical" href="https://library.kshs.ac.ug/library-guide.html">
+  <link rel="stylesheet" href="dist/output.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="KSHS Main Library Library Guide — a guide to using library services, resources, and study materials.">
+  <meta property="og:title" content="Library Guide | KSHS Main Library">
+  <meta property="og:description" content="A guide to using library services, resources, and study materials.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://library.kshs.ac.ug/library-guide.html">
+  <meta property="og:image" content="https://library.kshs.ac.ug/site-images/image1.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Library Guide | KSHS Main Library">
+  <meta name="twitter:description" content="A guide to using library services, resources, and study materials.">
+  <meta name="twitter:image" content="https://library.kshs.ac.ug/site-images/image1.webp">
+</head>
+<body class="bg-[#1b5e20] text-white min-h-screen flex flex-col">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="bg-[#1b5e20] border-b-5 border-[#ffc107] sticky top-0 z-100 w-full">
+    <div class="container mx-auto px-4 py-2 flex items-center justify-between">
+      <div class="flex items-center space-x-4 flex-shrink-0">
+        <a href="./" class="flex items-center space-x-2">
+          <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="h-11 w-auto object-contain" loading="lazy">
+          <span class="text-white font-bold text-base hidden md:block">KSHS LIBRARY</span>
+        </a>
+      </div>
+      <nav class="hidden lg:flex space-x-5 items-center">
+        <a href="#" onclick="window.location='./'" class="nav-link home-link">Home</a>
+        <a href="library-guide.html" class="nav-link guide-link active">Library Guide</a>
+        <a href="https://kshs.ac.ug/programs#" target="_blank" rel="noopener noreferrer" class="nav-link courses-link">Courses</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="nav-link repo-link">Institutional Repository</a>
+        <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="nav-link hinari-link">Hinari</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="nav-link opac-link">OPAC</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="nav-link elib-link">E-Library</a>
+        <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="nav-link studymaterials-link">Studymaterials</a>
+      </nav>
+      <div class="flex items-center space-x-2">
+        <button id="menu-button" class="lg:hidden p-2 text-white" onclick="toggleMenu()">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobile-menu" class="hidden fixed inset-0 bg-[#1b5e20] z-40 overflow-y-auto">
+    <div class="p-4 min-h-screen flex flex-col">
+      <button onclick="toggleMenu()" class="w-full flex justify-end p-2 text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      <nav class="flex flex-col space-y-4 mt-8 flex-grow">
+        <a href="./" onclick="toggleMenu(); window.location='./'" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Home</a>
+        <a href="library-guide.html" onclick="toggleMenu()" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Library Guide</a>
+        <a href="https://kshs.ac.ug/programs" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Courses</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Institutional Repository</a>
+        <a href="https://login.research4life.org/tacgw/login.cshtml" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Hinari</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">OPAC</a>
+        <a href="http://ir.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">E-Library</a>
+        <a href="https://studypedia.kshs.ac.ug" target="_blank" rel="noopener noreferrer" class="text-xl py-2 text-white hover:text-[#ffc107] transition">Studymaterials</a>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content" class="flex-grow flex items-center justify-center p-4 md:p-6 relative" role="main" aria-label="Main content">
+    <div class="text-center max-w-4xl px-2 md:px-4 z-10 w-full">
+      <img src="https://kshs.ac.ug/images/kampala%20logo.png" alt="KSHS Logo" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mx-auto mb-6 object-contain border-4 border-white/20 rounded-xl" loading="lazy">
+      <h1 class="text-3xl sm:text-5xl font-black mb-4 shadow-text leading-tight">Library Guide</h1>
+      <p class="text-lg md:text-xl mb-8 shadow-text font-medium opacity-90">
+        A guide to using KSHS Main Library services, resources, and study materials.
+      </p>
+
+      <!-- PDF embedded inline so it opens as a page, not a separate window -->
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-white/20 max-w-5xl mx-auto">
+        <embed src="LIBRARY GUIDE.pdf" type="application/pdf" class="w-full" height="90vh" title="Library Guide PDF">
+      </div>
+
+      <div class="mt-6 flex flex-col sm:flex-row justify-center gap-4">
+        <a href="LIBRARY GUIDE.pdf" download class="btn-secondary">Download PDF</a>
+        <a href="./" class="btn-primary">Back to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-[#1b5e20] text-white py-4 border-t-4 border-[#ffc107] mt-auto w-full">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-xs text-gray-400">&copy; 2026 Kampala School of Health Sciences Main Library. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <button id="return-top-btn" aria-label="Return to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-8 right-8 bg-green-800 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 z-50 opacity-0 invisible">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+  </button>
+
+  <script>
+    const returnBtn = document.getElementById("return-top-btn");
+    if (returnBtn) {
+      let scrollTimeout;
+      window.addEventListener("scroll", () => {
+        if (!scrollTimeout) {
+          scrollTimeout = setTimeout(() => {
+            scrollTimeout = null;
+            if (window.pageYOffset > 300) {
+              returnBtn.style.opacity = "1";
+              returnBtn.style.visibility = "visible";
+            } else {
+              returnBtn.style.opacity = "0";
+              returnBtn.style.visibility = "hidden";
+            }
+          }, 100);
+        }
+      });
+    }
+
+    window.toggleMenu = () => {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) menu.classList.toggle('hidden');
+    };
+  </script>
+</body>
+</html>
