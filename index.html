@@ -685,6 +685,9 @@
                  '<div class="loading-spinner"></div>' +
                  '<p>Loading documents...</p></div></div>';
          main.innerHTML = html;
+       main.querySelectorAll('.js-read-document').forEach(button => {
+         button.addEventListener('click', () => window.openDocument(button.dataset.filePath, button.dataset.documentTitle));
+       });
          return;
        }
        
@@ -706,7 +709,7 @@
           if (doc.description) html += '<div class="doc-desc">' + doc.description + '</div>';
           html += '</div>';
           if (filePath) {
-            html += '<button type="button" onclick="window.openDocument(\\'' + encodeURIComponent(filePath) + '\\', \\' + encodeURIComponent(doc.title || doc.id || 'Untitled Document') + '\\')" class="btn-green">Read</button>';
+            html += '<button type="button" class="btn-green js-read-document" data-file-path="' + encodeURIComponent(filePath) + '" data-document-title="' + encodeURIComponent(doc.title || doc.id || 'Untitled Document') + '">Read</button>';
            }
            html += '</div>';
          });
