@@ -820,13 +820,19 @@
 
       // Canvas-only rendering deliberately omits a selectable text layer and viewer
       // controls for downloading, printing, or copying document content.
-      main.querySelector('#pdf-reader').addEventListener('keydown', event => {
+      const reader = main.querySelector('#pdf-reader');
+      reader.setAttribute('tabindex', '0');
+      reader.addEventListener('copy', event => event.preventDefault());
+      reader.addEventListener('cut', event => event.preventDefault());
+      if (window.pdfReaderKeyGuard) document.removeEventListener('keydown', window.pdfReaderKeyGuard, true);
+      window.pdfReaderKeyGuard = event => {
+        if (!document.getElementById('pdf-reader')) return;
         if ((event.ctrlKey || event.metaKey) && ['c', 's', 'p'].includes(event.key.toLowerCase())) {
           event.preventDefault();
           event.stopPropagation();
         }
-      });
-      main.querySelector('#pdf-reader').setAttribute('tabindex', '0');
+      };
+      document.addEventListener('keydown', window.pdfReaderKeyGuard, true);
 
       try {
         const pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.min.mjs');
