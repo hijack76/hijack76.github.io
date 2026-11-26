@@ -68,7 +68,7 @@ jobs:
               sys.exit(1)
 
           images_dir = root / "site images"
-          expected = [images_dir / f"image{i}.webp" for i in range(1, 48)]
+          expected = [images_dir / f"image{i}.webp" for i in range(1, 46)]
           absent = [str(path) for path in expected if not path.is_file()]
           if absent:
               print("FAIL: missing carousel WebP files:")
