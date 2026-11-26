@@ -117,29 +117,9 @@
 
   <main id="main-content" class="flex-grow block px-3 py-8 md:px-6 md:py-10 relative" role="main" aria-label="Main content">
     <div class="text-center max-w-7xl px-1 md:px-3 z-10 w-full mx-auto">
-      <h1 class="text-3xl sm:text-5xl font-black mb-4 shadow-text leading-tight">Library Guide</h1>
-      <p class="text-lg md:text-xl mb-8 shadow-text font-medium opacity-90">
-        A guide to using KSHS Main Library services, resources, and study materials.
-      </p>
-
-      <!-- PDF.js-powered reader: the browser's built-in PDF toolbar is not used. -->
+      <!-- PDF.js-powered reader: show the guide pages without a duplicate heading or toolbar. -->
       <section id="guide-reader" class="w-full mx-auto text-left bg-white rounded-xl shadow-xl overflow-hidden border border-white/20" aria-label="Library guide reader">
-        <div class="flex flex-wrap items-center justify-between gap-3 bg-green-950 text-white px-3 py-3 md:px-5">
-          <div class="font-semibold">Library Guide</div>
-          <div class="flex flex-wrap items-center gap-2">
-            <button id="guide-prev" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25 disabled:opacity-40" disabled>Previous</button>
-            <label for="guide-page" class="sr-only">Page number</label>
-            <input id="guide-page" type="number" min="1" value="1" class="w-16 rounded-md px-2 py-2 text-center text-gray-900" aria-label="Page number">
-            <span id="guide-page-count" class="text-sm whitespace-nowrap">of …</span>
-            <button id="guide-next" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25" disabled>Next</button>
-            <span class="hidden sm:inline-block h-7 w-px bg-white/30"></span>
-            <button id="guide-zoom-out" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25" aria-label="Zoom out">−</button>
-            <span id="guide-zoom-label" class="min-w-12 text-center text-sm">Fit</span>
-            <button id="guide-zoom-in" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25" aria-label="Zoom in">+</button>
-            <button id="guide-fullscreen" type="button" class="rounded-md bg-white/15 px-3 py-2 text-sm hover:bg-white/25">Full screen</button>
-          </div>
-        </div>
-        <div id="guide-status" class="bg-gray-50 px-4 py-3 text-center text-sm text-gray-600" role="status" aria-live="polite">Loading the library guide…</div>
+        <div id="guide-status" class="sr-only" role="status" aria-live="polite">Loading the library guide…</div>
         <div id="guide-page-stage" class="bg-gray-200 px-2 py-5 md:px-6 md:py-8 space-y-6" style="overflow:visible;overscroll-behavior:auto;">
           <div id="guide-pages" class="mx-auto flex w-full max-w-5xl flex-col items-center gap-6" aria-label="All pages of the library guide"></div>
         </div>
