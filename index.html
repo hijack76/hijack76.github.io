@@ -581,5 +581,29 @@
       element.textContent = new Date().getFullYear();
     });
   </script>
+  <script id="close-dropdown-on-outside-click">
+    (() => {
+      const resourceMenus = document.querySelectorAll('.library-resources');
+      if (!resourceMenus.length) return;
+
+      document.addEventListener('click', (event) => {
+        resourceMenus.forEach((menu) => {
+          if (menu.open && !menu.contains(event.target)) menu.removeAttribute('open');
+        });
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          resourceMenus.forEach((menu) => menu.removeAttribute('open'));
+        }
+      });
+
+      resourceMenus.forEach((menu) => {
+        menu.querySelectorAll('.library-dropdown a').forEach((link) => {
+          link.addEventListener('click', () => menu.removeAttribute('open'));
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
