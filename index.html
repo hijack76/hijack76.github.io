@@ -274,15 +274,15 @@
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto mb-12">
           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-            <div class="text-2xl font-bold">1000+</div>
+            <div class="text-2xl font-bold"><span class="stat-counter" data-target="1000" data-suffix="+">1</span></div>
             <div class="text-sm opacity-80">Resources</div>
           </div>
           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-            <div class="text-2xl font-bold">24/7</div>
+            <div class="text-2xl font-bold"><span class="stat-counter" data-target="24" data-suffix="/7">1</span></div>
             <div class="text-sm opacity-80">Access</div>
           </div>
           <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-            <div class="text-2xl font-bold">100%</div>
+            <div class="text-2xl font-bold"><span class="stat-counter" data-target="100" data-suffix="%">1</span></div>
             <div class="text-sm opacity-80">Digital</div>
           </div>
         </div>
@@ -405,6 +405,30 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
+
+  <script>
+    // Count the homepage statistics upward when the page loads.
+    (() => {
+      document.querySelectorAll('.stat-counter').forEach(counter => {
+        const target = Number(counter.dataset.target);
+        const suffix = counter.dataset.suffix || '';
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          counter.textContent = target.toLocaleString() + suffix;
+          return;
+        }
+        const start = performance.now();
+        const duration = 1600;
+        const animate = now => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = Math.max(1, Math.floor(1 + (target - 1) * eased));
+          counter.textContent = value.toLocaleString() + suffix;
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+      });
+    })();
+  </script>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
