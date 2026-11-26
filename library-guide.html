@@ -76,7 +76,18 @@
     .library-mobile-resources>summary{list-style:none;cursor:pointer}.library-mobile-resources>summary::-webkit-details-marker{display:none}
     @media(max-width:1023px){.library-site-header .header-inner{min-height:66px}}
 
-    /* Refined digital guide reading surface */
+    #guide-placeholder { max-width: 860px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) 18px; }
+    #guide-placeholder .placeholder-line { height: 12px; margin: 0 auto 14px; border-radius: 999px; background: linear-gradient(90deg,#e5ebe5 25%,#f5f8f5 50%,#e5ebe5 75%); background-size: 220% 100%; animation: guide-placeholder-shimmer 1.35s ease-in-out infinite; }
+    #guide-placeholder .placeholder-line:nth-child(1) { width: 42%; height: 17px; margin-bottom: 30px; }
+    #guide-placeholder .placeholder-line:nth-child(2) { width: 92%; }
+    #guide-placeholder .placeholder-line:nth-child(3) { width: 84%; }
+    #guide-placeholder .placeholder-line:nth-child(4) { width: 89%; }
+    #guide-placeholder .placeholder-line:nth-child(5) { width: 66%; margin-bottom: 30px; }
+    #guide-placeholder .placeholder-line:nth-child(6) { width: 88%; }
+    #guide-placeholder .placeholder-line:nth-child(7) { width: 78%; }
+    @keyframes guide-placeholder-shimmer { to { background-position: -220% 0; } }
+    @media (prefers-reduced-motion: reduce) { #guide-placeholder .placeholder-line { animation: none; } }
+\n    /* Refined digital guide reading surface */
     html { scroll-behavior: smooth; }
     body { background: #f3f6f2; color: #173b24; }
     #main-content {
@@ -250,7 +261,7 @@
     (async function initialiseGuideReader() {
       const status = document.getElementById('guide-status');
       const stage = document.getElementById('guide-page-stage');
-      const pagesContainer = document.getElementById('guide-pages');
+      const pagesContainer = document.getElementById('guide-pages');\n      const placeholder = document.getElementById('guide-placeholder');
       const pageInput = document.getElementById('guide-page');
       const pageCount = document.getElementById('guide-page-count');
       const previous = document.getElementById('guide-prev');
@@ -271,7 +282,7 @@
       async function renderAllPages() {
         if (!pdf || rendering) return;
         rendering = true;
-        status.textContent = 'Preparing your library guide…';
+        status.textContent = 'Preparing your library guide…';\n        placeholder.hidden = false;
         pagesContainer.replaceChildren();
         pageElements = [];
         try {
@@ -302,13 +313,13 @@
             context.setTransform(ratio, 0, 0, ratio, 0, 0);
             await page.render({ canvasContext: context, viewport }).promise;
           }
-          status.textContent = 'Library guide loaded — scroll down to read every page.';
+          placeholder.hidden = true;\n          status.textContent = 'Library guide ready.';
           pageInput.max = String(pdf.numPages);
           pageCount.textContent = 'of ' + pdf.numPages;
           updateControls();
         } catch (error) {
           console.error('Library guide page render error:', error);
-          status.textContent = 'Some pages could not be displayed. Please refresh the page to try again.';
+          placeholder.hidden = false;\n          status.textContent = 'Some pages could not be displayed. Please refresh the page to try again.';
         } finally {
           rendering = false;
         }
@@ -370,7 +381,7 @@
         await renderAllPages();
       } catch (error) {
         console.error('Library guide reader error:', error);
-        status.textContent = 'The guide could not be loaded. Please refresh the page or try again later.';
+        placeholder.hidden = false;\n        status.textContent = 'The guide could not be loaded. Please refresh the page or try again later.';
       }
     })();
   </script>
