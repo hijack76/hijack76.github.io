@@ -120,6 +120,17 @@
       <!-- PDF.js-powered reader: show the guide pages without a duplicate heading or toolbar. -->
       <section id="guide-reader" class="w-full mx-auto text-left bg-white rounded-xl shadow-xl overflow-hidden border border-white/20" aria-label="Library guide reader">
         <div id="guide-status" class="sr-only" role="status" aria-live="polite">Loading the library guide…</div>
+        <!-- Retain reader controls for the script, but keep the toolbar completely hidden. -->
+        <div class="hidden" aria-hidden="true">
+          <button id="guide-prev" type="button"></button>
+          <input id="guide-page" type="number" min="1" value="1">
+          <span id="guide-page-count"></span>
+          <button id="guide-next" type="button"></button>
+          <span id="guide-zoom-label"></span>
+          <button id="guide-zoom-in" type="button"></button>
+          <button id="guide-zoom-out" type="button"></button>
+          <button id="guide-fullscreen" type="button"></button>
+        </div>
         <div id="guide-page-stage" class="bg-gray-200 px-2 py-5 md:px-6 md:py-8 space-y-6" style="overflow:visible;overscroll-behavior:auto;">
           <div id="guide-pages" class="mx-auto flex w-full max-w-5xl flex-col items-center gap-6" aria-label="All pages of the library guide"></div>
         </div>
